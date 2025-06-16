@@ -1,0 +1,213 @@
+/*---------HEADER------*/
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+header {
+    background: linear-gradient(to right, rgb(0, 177, 208), rgb(34, 45, 251));
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: 'Montserrat', sans-serif;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: white; /* Asegúrate de poner fondo para que no se vea el contenido detrás */
+  }
+.top-header{
+    padding: 10px 64px;
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 250px;
+    border-radius: 300px;
+    
+}
+
+.top-header img{
+    width: 100%;
+    height: auto;
+}
+
+.top-header a {
+    width: 350px;
+    height: auto;
+}
+/*-----BARRA------*/
+.barra{
+    position: relative;
+    display: inline-block;
+}
+
+.resultados-previa{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border: 1px solid #ccc;
+    max-height: 300px;
+    overflow-y: auto;
+    display: none;
+    z-index: 10;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+.resultado-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    color: #000;
+}
+
+.resultado-item img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.resultado-info {
+  flex: 1;
+}
+
+.resultado-nombre {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.resultado-precio {
+  color: green;
+  font-size: 0.9em;
+}
+
+.resultado-ver {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  text-decoration: none;
+}
+.barra button{   
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: rgb(0, 0, 0);
+    font-size: 16px;
+}
+.buscador button:hover {
+    color: rgb(150, 19, 238);
+  }
+.barra input{
+    padding-right: 35px; /* Espacio para el icono */
+    padding-left: 10px;
+    height: 35px;
+    width: 550px;
+    font-size: 16px;
+    background-color: transparent;
+    border: 0px solid #ccc;
+    border-bottom: 0px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+    outline: none; /* Quita el borde azul al hacer clic */
+    transition: box-shadow 0.2s;
+    font-family: 'Montserrat', sans-serif;
+}
+::placeholder{
+    color: #eee;
+}
+
+.barra i{
+    font-size: 18px;
+}
+
+.carrito{
+  position: relative;
+  cursor: pointer;
+  font-size: 1.5rem;
+} 
+
+.carrito img {
+    width: 40px;
+    height: auto;
+}
+
+.contador {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  background-color: red;
+  color: white;
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 50%;
+}
+
+/*---------NAV------*/
+
+nav {
+  position: relative;
+}
+.barra-nav{
+    background: #000;
+    color: rgb(255, 255, 255);
+    padding: 1px 15%;
+    font-weight: 600;
+}
+
+
+.nav-list{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0; 
+    gap: 40px;
+    list-style: none;
+    margin: 0;
+}
+
+.has-submenu{
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.submenu-bar{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100vw;
+    background-color: #ffffff;
+    z-index: 1000;
+    padding: 10px 0;
+    border-top: 2px solid #ccc;
+
+}
+
+.submenu-content{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 10px 15%;
+    color: #000000;
+
+}
+
+.submenu-content a{
+    color: #000000;
+    text-decoration: none;
+}
+
+.has-submenu a{
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+}
+

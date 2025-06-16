@@ -1,0 +1,68 @@
+<header>
+    <div class="top-header">
+        <a routerLink=""><img src="./assets/LOGO-SIN-FONDO-BLANCO.png" alt=""></a>
+        <div class="barra">
+            <input type="text" id="searchInput" placeholder="Banpresto, SEGA,..." autocomplete="off" />
+            <div id="resultados" class="resultados-previa"></div>
+        </div>
+        <div class="carrito">
+            <img src="assets/carrito.png" alt="Carrito" width="30" />
+            <span class="contador">3</span>
+        </div>
+    </div>
+    <nav class="barra-nav" (mouseleave)="closeMenu()">
+        <ul class="nav-list">
+            <li class="has-submenu" (mouseenter)="openMenu('franquicia')">FRANQUICIA</li>
+            <li class="has-submenu" (mouseenter)="openMenu('productos')">PRODUCTOS</li>
+            <li class="has-submenu" (mouseenter)="openMenu('marcas')">MARCA</li>
+            <li class="has-submenu"><a [routerLink]="['/catalogo']">CATÁLOGO</a></li>
+            <li class="has-submenu"><a [routerLink]="['/quienes-somos']">NOSOTROS</a></li>
+        </ul>
+        <div class="submenu-bar" *ngIf="activeMenu">
+            <div class="submenu-content" *ngIf="activeMenu === 'franquicia'">
+                <a href="#">Sailor Moon</a> |
+                <a href="#">Digimon</a> |
+                <a href="#">Hunter x Hunter</a> |
+                <a href="#">Dragon Ball</a> |
+                <a href="#">Naruto</a> |
+                <a href="#">One Piece</a> |
+                <a href="#">My Hero Academia</a> |
+                <a href="#">Attack on Titan</a> |
+                <a href="#">Spy Family</a> |
+                <a href="#">Yu-Gi-Oh!</a> |
+                <a href="#">Kimetsu No Yaiba</a> |
+                <a href="#">Waifus</a> |
+                <a href="#">Evangelion</a> |
+                <a href="#">Princesas</a> |
+                <a href="#">Marvel</a> |
+                <a href="#">DC</a> |
+                <a href="#">Hello Kitty</a> |
+                <a href="#">Overlord</a> |
+                <a href="#">Jujutsu Kaisen</a> |
+                <a href="#">Hatsune Miku</a> |
+                <a href="#">Kaijus</a> |
+            </div>
+            <div class="submenu-content" *ngIf="activeMenu === 'productos'">
+                <a href="#">Peluches</a> |
+                <a href="#">Cuadros</a> |
+                <a href="#">Accesorios</a> |
+                <a href="#">Posters</a> |
+                <a href="#">Toallas</a> |
+                <a href="#">Folders</a> |
+                <a href="#">Acrílicos</a> |
+                <a href="#">Otros</a> |
+            </div>
+            <div class="submenu-content" *ngIf="activeMenu === 'marcas'">
+                <a href="#">BANPRESTO</a> |
+                <a href="#">SEGA</a> |
+                <a href="#">BANDAI</a> |
+                <a href="#">FURYU</a> |
+                <a href="#">ICHIBAN KUJI</a> |
+                <a href="#">FIGMA</a> |
+                <a href="#">KOTOBUKIYA</a> |
+                <a href="#">TAMASHII NATIONS</a> |
+                <a href="#">TAITO</a> |
+            </div>
+        </div>
+    </nav>
+</header>
