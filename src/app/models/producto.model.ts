@@ -21,6 +21,10 @@ export interface Linea {
   franquicias?: Franquicia[];
 }
 
+export interface Category {
+  id: number;
+  estado: string;}
+
 export interface Producto {
   id: number;
   Nombre: string;
@@ -34,4 +38,5 @@ export interface Producto {
   franquicia?: Franquicia;
   marca?: Marca;
   linea?: Linea;
+  categories?: Category[];
 }

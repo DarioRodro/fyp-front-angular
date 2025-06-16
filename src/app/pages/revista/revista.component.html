@@ -1,0 +1,47 @@
+<div class="cuatro-anuncios">
+    <img src="assets/qposketanunci.png" alt="">
+    <img src="assets/match-maker-anunc.png" alt="">
+    <img src="assets/gganunci.png" alt="">
+    <img src="assets/peluchepokemo.png" alt="">
+</div>
+<div class="pre-venta" id="pre-venta">
+    <h1> PRE-VENTA </h1>
+    <div *ngIf="productosPreventa.length > 0; else sinPreventa" class="carousel-container">
+        <button class="carousel-button left" (click)="moverSlider(-1)">&#10094;</button>
+        <div #slider class="slider-scroll">
+            <app-prb-productos [productos]="productosPreventa"></app-prb-productos>
+        </div>
+
+        <button class="carousel-button right" (click)="moverSlider(1)">&#10095;</button>
+    </div>
+
+    <ng-template #sinPreventa>
+        <p>No hay productos en preventa.</p>
+    </ng-template>
+</div>
+<div class="novedades" id="novedades">
+    <h1> NOVEDADES </h1>
+    <div class="prod-novedades">
+        <app-prb-productos [productos]="productosNovedades" modo="grilla"></app-prb-productos>
+        <div class="vertodo">
+            <button class="ver"> Ver Todos los Productos</button>
+        </div>
+    </div>
+</div>
+<div class=" colecciones" id="mejores-colecciones">
+    <h1> MEJORES COLECCIONES </h1>
+    <div class="carousel-mj">
+        <button (click)="prevSlider()">&#10094;</button>
+        <div class="colecc-img">
+            <div class="carousel-item" *ngFor="let imagen of imagenes; let i = index"
+                [class.active]="i === indiceActual" [class.prev]="i === indiceAnterior()"
+                [class.next]="i === indiceSiguiente()">
+                <img [src]='imagen' alt="Imagen {{ i + 1 }}" />
+            </div>
+        </div>
+        <button (click)="nextSlider()">&#10095;</button>
+    </div>
+</div>
+<div class="anuncio2">
+    <img src="./assets/anuncio-2.png" alt="">
+</div>

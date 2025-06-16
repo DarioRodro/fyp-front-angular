@@ -1,0 +1,212 @@
+/*.productos-catalogo{
+}*/
+
+.selector-botones {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr;
+    justify-content: space-between;
+    height: 60px;
+    font-size: 2rem;
+    margin: 20px 250px; 
+    padding: 0 64px;
+}
+
+.uwu{
+    color: #000000;
+    font-size: 1.5rem;
+    font-family: 'K2D', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.3 ease;
+    border: none;
+    border-radius: 10px;
+}
+
+.uwu.activo {
+  background: linear-gradient(to right, rgb(0, 177, 208), rgb(34, 45, 251));
+  color: #ffffff;
+}
+
+.slider-contenedor button {
+  background-color: transparent;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 2;
+  padding: 0 0.5rem;
+  color: #333;
+}
+
+.slider-contenedor {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 2rem 0 0rem 0;
+  overflow: hidden;
+  margin: 0 250px;
+  padding: 0 64px;
+}
+
+.slider {
+  display: flex;
+  gap: 50px;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  max-width: 100%;
+  padding: 1rem 2rem;
+  scroll-snap-type: x mandatory;
+
+}
+
+.slide {
+  flex: 0 0 auto;
+  cursor: pointer;
+}
+
+.slide img {
+  width: 150px;
+  height: 100px;
+  object-fit: contain;
+}
+
+.slider {
+  overflow-x: auto;
+}
+
+
+
+.productos-lista {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+  justify-content: center;
+}
+
+.producto {
+  width: 150px;
+  text-align: center;
+}
+
+.producto img {
+  width: 100%;
+  height: auto;
+}
+
+/*FILTRO*/
+.contenedor-productos-filtro {
+  display: flex;
+  gap: 2rem;
+  margin: 2rem 250px;
+  padding: 0 64px;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+/* Lista de productos */
+.productos-lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1.5rem;
+  flex: 1;
+}
+
+/* Cada producto */
+.producto {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  text-align: center;
+}
+
+
+/*BARRA LATERAL*/
+.filtro-lateral {
+  width: 250px;
+  background-color: #f9f9f9;
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+}
+
+
+.filtro-lateral ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 1rem;
+}
+
+.filtro-lateral li {
+  cursor: pointer;
+  padding: 0.3rem 0;
+  color: #333;
+  transition: background 0.2s ease;
+  margin-bottom: 0.5rem;
+  color: #444;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 0.3rem;
+}
+
+.filtro-lateral li:hover {
+  background-color: #e0e0e0;
+  border-radius: 0.3rem;
+  padding-left: 0.3rem;
+}
+
+.filtro-lateral .grupo-logo {
+  margin: 10px 0;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.filtro-lateral .grupo-logo:hover {
+  transform: scale(1.05);
+}
+.filtro-lateral .grupo-logo img.loguito {
+  max-height: 40px;
+  object-fit: contain;
+}
+
+h4 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-weight: 600;
+  font-family: 'K2D', sans-serif;
+      margin-block-start: 0;
+}
+li.activo {
+  font-weight: bold;
+  color: #e60073; /* O el color que prefieras */
+  cursor: pointer;
+}
+.seleccionado {
+  font-weight: bold;
+}
+
+.btn-limpiar {
+  padding: 8px 16px;
+  background-color: #000000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 10px 0;
+  transition: background-color 0.3s ease;
+  font-family: 'K2D', sans-serif;
+}
+
+.btn-limpiar:hover {
+    background-color: #222dfb
+
+}
+
+.grupo-logo.seleccionado {
+  border: 2px solid #4053ff;
+  border-radius: 8px;
+  padding: 4px;
+  background-color: rgba(143, 45, 255, 0.1);
+}

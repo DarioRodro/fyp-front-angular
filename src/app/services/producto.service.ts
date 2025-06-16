@@ -7,7 +7,7 @@ import { Producto } from '../models/producto.model'; // NUEVA RUTA
   providedIn: 'root'
 })
 export class ProductoService {
-private apiUrl = 'http://localhost:1337/api/products?populate[Imagen]=true&populate[franquicia][populate][0]=logo&populate[marca][populate][0]=logo&populate[linea][populate][0]=marca&populate[linea][populate][1]=franquicias&populate[linea][populate][2]=marca.logo';
+private apiUrl = 'http://localhost:1337/api/products?populate[Imagen]=true&populate[franquicia][populate][0]=logo&populate[marca][populate][0]=logo&populate[linea][populate][0]=marca&populate[linea][populate][1]=franquicias&populate[linea][populate][2]=marca.logo&populate[categories]=*';
 
   constructor(private http: HttpClient) {}
 

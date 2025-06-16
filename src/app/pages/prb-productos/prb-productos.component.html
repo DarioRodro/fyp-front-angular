@@ -1,0 +1,21 @@
+<div [ngClass]="modo === 'horizontal' ? 'productos-lista-horizontal' :  'productos-grid' ">
+
+    <div class="producto" *ngFor="let producto of productos">
+        <div *ngIf="producto.Imagen?.length">
+            <div *ngFor="let img of producto.Imagen">
+                <img *ngIf="producto.Imagen.length > 0" [src]="'http://localhost:1337' + producto.Imagen[0].url"
+                    alt="{{ producto.Nombre }}">
+
+            </div>
+        </div>
+        <div class="info">
+            <p class="marca"> {{ producto.marca.nombre }} </p>
+            <p class="name"><strong> {{ producto.Nombre }} </strong></p>
+            <p class="price"> {{ producto.Precio | currency:'PEN':'symbol':'1.2-2':'es-PE' }} </p>
+        </div>
+    </div>
+
+    <ng-template #cargando>
+        <p>Cargando productos...</p>
+    </ng-template>
+</div>

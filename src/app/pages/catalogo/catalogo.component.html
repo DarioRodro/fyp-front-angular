@@ -1,0 +1,53 @@
+<section class="productos-catalogo">
+    <div class="selector-botones">
+        <button class="uwu" (click)="opcionSeleccionada = 'franquicia'"
+            [class.activo]="opcionSeleccionada === 'franquicia'">Franquicia</button>
+        <button class="uwu" (click)="opcionSeleccionada = 'marca'"
+            [class.activo]="opcionSeleccionada === 'marca'">Marca</button>
+        <button class="uwu" (click)="opcionSeleccionada = 'merch'"
+            [class.activo]="opcionSeleccionada === 'merch'">Merch</button>
+    </div>
+    <div class="slider-contenedor" *ngIf="opcionSeleccionada !== 'merch'">
+        <button class="flecha" (click)="moverSlider(-1)">&#10094;</button>
+
+        <div class="slider" #slider>
+            <div class="slide" *ngFor="let item of opcionSeleccionada === 'franquicia' ? franquicias : marcas"
+                (click)="opcionSeleccionada === 'franquicia' ? filtrarPorFranquicia(item.nombre) : filtrarPorMarca(item.nombre)">
+                <img *ngIf="item.logoUrl" [src]="item.logoUrl"
+                    [alt]="opcionSeleccionada === 'franquicia' ? item.nombre : item.nombre" />
+            </div>
+        </div>
+
+        <button class="flecha" (click)="moverSlider(1)">&#10095;</button>
+    </div>
+
+    <div class="contenedor-productos-filtro">
+        <app-prb-productos [productos]="productosFiltrados"></app-prb-productos>
+
+        <!-- Filtros Laterales -->
+
+        <div class="filtro-lateral">
+            <button (click)="limpiarTodosLosFiltros()" class="btn-limpiar">
+                Limpiar filtros
+            </button>
+
+            <h3> Filtrar por: </h3>
+            <div *ngFor="let filtro of filtrosLaterales" class="filtro-item">
+                <div class="grupo-logo"
+                    [ngClass]="{'seleccionado': (opcionSeleccionada === 'franquicia' && marcaSeleccionada === filtro.nombre) ||(opcionSeleccionada === 'marca' && franquiciaSeleccionada === filtro.nombre)}"
+                    (click)="opcionSeleccionada === 'franquicia' ? filtrarMarcaDesdeFranquicia(filtro.nombre) : filtrarFranquiciaDesdeMarca(filtro.nombre)">
+                    <img [src]="filtro.logoUrl" [alt]="filtro.nombre" class="loguito" />
+                </div>
+                <h4>{{ filtro.nombre }}</h4>
+                <ul>
+                    <li *ngFor="let linea of filtro.lineas" (click)="filtrarPorLinea(linea.nombre)">
+                        <span [ngClass]="{ 'seleccionado': lineaSeleccionada === linea.nombre }">
+                            {{ linea.nombre }} ({{ linea.cantidad }})
+                        </span>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</section>
