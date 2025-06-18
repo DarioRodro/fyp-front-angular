@@ -1,10 +1,11 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule} from '@angular/router';
 
 @Component({
   selector: 'app-prb-productos',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './prb-productos.component.html',
   styleUrl: './prb-productos.component.css'
 })

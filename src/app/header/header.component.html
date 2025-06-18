@@ -13,7 +13,6 @@
     <nav class="barra-nav" (mouseleave)="closeMenu()">
         <ul class="nav-list">
             <li class="has-submenu" (mouseenter)="openMenu('franquicia')">FRANQUICIA</li>
-            <li class="has-submenu" (mouseenter)="openMenu('productos')">PRODUCTOS</li>
             <li class="has-submenu" (mouseenter)="openMenu('marcas')">MARCA</li>
             <li class="has-submenu"><a [routerLink]="['/catalogo']">CATÁLOGO</a></li>
             <li class="has-submenu"><a [routerLink]="['/quienes-somos']">NOSOTROS</a></li>
@@ -41,16 +40,6 @@
                 <a href="#">Jujutsu Kaisen</a> |
                 <a href="#">Hatsune Miku</a> |
                 <a href="#">Kaijus</a> |
-            </div>
-            <div class="submenu-content" *ngIf="activeMenu === 'productos'">
-                <a href="#">Peluches</a> |
-                <a href="#">Cuadros</a> |
-                <a href="#">Accesorios</a> |
-                <a href="#">Posters</a> |
-                <a href="#">Toallas</a> |
-                <a href="#">Folders</a> |
-                <a href="#">Acrílicos</a> |
-                <a href="#">Otros</a> |
             </div>
             <div class="submenu-content" *ngIf="activeMenu === 'marcas'">
                 <a href="#">BANPRESTO</a> |

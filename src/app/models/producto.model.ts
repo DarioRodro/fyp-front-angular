@@ -23,7 +23,8 @@ export interface Linea {
 
 export interface Category {
   id: number;
-  estado: string;}
+  estado: string;
+}
 
 export interface Producto {
   id: number;

@@ -24,7 +24,7 @@ export class CatalogoComponent implements OnInit {
     lineas: { nombre: string; cantidad: number }[];
   }[] = [];
 
-  opcionSeleccionada: 'franquicia' | 'marca' | 'merch' = 'franquicia';
+  opcionSeleccionada: 'franquicia' | 'marca' = 'franquicia';
   marcaSeleccionada: string | null = null;
   franquiciaSeleccionada: string | null = null;
   lineaSeleccionada: string | null = null;
@@ -36,25 +36,40 @@ export class CatalogoComponent implements OnInit {
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
+  ngOnInit(): void {
+    this.cargarProductos(true);
+    this.cargarFranquicias();
+    this.cargarMarcas();
+  }
+
   private esBrowser(): boolean {
     return isPlatformBrowser(this.platformId);
   }
 
-  ngOnInit(): void {
+  private guardarEnStorage(claves: { [key: string]: string | null }) {
+    if (!this.esBrowser()) return;
+    for (const [clave, valor] of Object.entries(claves)) {
+      valor === null ? localStorage.removeItem(clave) : localStorage.setItem(clave, valor);
+    }
+  }
+
+  private cargarProductos(inicial = false): void {
     this.productoService.obtenerProductos().subscribe((res: any) => {
       this.productos = res.data;
-      if (this.esBrowser()) {
-        this.restaurarFiltrosDesdeLocalStorage();
-      }
+      inicial ? this.restaurarFiltrosDesdeLocalStorage() : this.actualizarFiltrosLaterales();
     });
+  }
 
+  private cargarFranquicias(): void {
     this.franquiciaService.obtenerFranquicias().subscribe((res) => {
       this.franquicias = res.data.map((f: any) => ({
         nombre: f.nombre,
         logoUrl: f.logo?.url ? 'http://localhost:1337' + f.logo.url : ''
       }));
     });
+  }
 
+  private cargarMarcas(): void {
     this.marcaService.obtenerMarcas().subscribe((res) => {
       this.marcas = res.data.map((m: any) => ({
         nombre: m.nombre ?? 'Sin nombre',
@@ -63,124 +78,97 @@ export class CatalogoComponent implements OnInit {
     });
   }
 
-  cambiarOpcion(opcion: 'franquicia' | 'marca' | 'merch') {
+  cambiarOpcion(opcion: 'franquicia' | 'marca') {
     this.opcionSeleccionada = opcion;
     this.resetearFiltros();
-    this.productoService.obtenerProductos().subscribe((res: any) => {
-      this.productos = res.data;
-      this.actualizarFiltrosLaterales();
-    });
-    if (this.esBrowser()) localStorage.setItem('filtroTipo', opcion);
+    this.cargarProductos();
+    this.guardarEnStorage({ filtroTipo: opcion });
   }
 
-  filtrarPorFranquicia(nombreFranquicia: string) {
+  private aplicarFiltro(tipo: 'franquicia' | 'marca', nombre: string): void {
     this.productoService.obtenerProductos().subscribe((res: any) => {
-      this.productos = res.data.filter((producto: any) =>
-        producto.franquicia?.nombre === nombreFranquicia
+      this.productos = res.data.filter((p: any) =>
+        tipo === 'franquicia'
+          ? p.franquicia?.nombre === nombre
+          : p.marca?.nombre === nombre
       );
 
-      this.franquiciaSeleccionada = nombreFranquicia;
-      this.marcaSeleccionada = null;
+      this.opcionSeleccionada = tipo;
+      this.franquiciaSeleccionada = tipo === 'franquicia' ? nombre : null;
+      this.marcaSeleccionada = tipo === 'marca' ? nombre : null;
       this.lineaSeleccionada = null;
-      this.opcionSeleccionada = 'franquicia';
-      this.actualizarFiltrosLaterales();
 
-      if (this.esBrowser()) {
-        localStorage.setItem('filtroTipo', 'franquicia');
-        localStorage.setItem('filtroFranquicia', nombreFranquicia);
-        localStorage.removeItem('filtroMarca');
-        localStorage.removeItem('filtroLinea');
-      }
+      this.guardarEnStorage({
+        filtroTipo: tipo,
+        filtroFranquicia: tipo === 'franquicia' ? nombre : null,
+        filtroMarca: tipo === 'marca' ? nombre : null,
+        filtroLinea: null
+      });
+
+      this.actualizarFiltrosLaterales();
     });
   }
 
-  filtrarPorMarca(nombreMarca: string) {
-    this.productoService.obtenerProductos().subscribe((res: any) => {
-      this.productos = res.data.filter((producto: any) =>
-        producto.marca?.nombre === nombreMarca
-      );
+  filtrarPorFranquicia(nombre: string) {
+    this.aplicarFiltro('franquicia', nombre);
+  }
 
-      this.marcaSeleccionada = nombreMarca;
-      this.franquiciaSeleccionada = null;
-      this.lineaSeleccionada = null;
-      this.opcionSeleccionada = 'marca';
-      this.actualizarFiltrosLaterales();
-
-      if (this.esBrowser()) {
-        localStorage.setItem('filtroTipo', 'marca');
-        localStorage.setItem('filtroMarca', nombreMarca);
-        localStorage.removeItem('filtroFranquicia');
-        localStorage.removeItem('filtroLinea');
-      }
-    });
+  filtrarPorMarca(nombre: string) {
+    this.aplicarFiltro('marca', nombre);
   }
 
   filtrarPorLinea(nombreLinea: string) {
     if (this.lineaSeleccionada === nombreLinea) {
       this.lineaSeleccionada = null;
-      if (this.esBrowser()) localStorage.removeItem('filtroLinea');
+      this.guardarEnStorage({ filtroLinea: null });
     } else {
       this.lineaSeleccionada = nombreLinea;
-      if (this.esBrowser()) localStorage.setItem('filtroLinea', nombreLinea);
+      this.guardarEnStorage({ filtroLinea: nombreLinea });
 
-      const productoConLinea = this.productos.find(p => p.linea?.nombre === nombreLinea);
+      const producto = this.productos.find(p => p.linea?.nombre === nombreLinea);
+      if (!producto) return;
+
+      const marcaDeLinea = producto.linea?.marca?.nombre;
+      const franquiciasDeLinea = producto.linea?.franquicias || [];
 
       if (this.opcionSeleccionada === 'marca' && this.franquiciaSeleccionada) {
-        const franquiciasDeLinea = productoConLinea?.linea?.franquicias || [];
-        const lineaCompatible = franquiciasDeLinea.some(f => f.nombre === this.franquiciaSeleccionada);
-
-        if (!lineaCompatible) {
-          this.franquiciaSeleccionada = null;
-          if (this.esBrowser()) localStorage.removeItem('filtroFranquicia');
-        }
+        const esCompatible = franquiciasDeLinea.some(f => f.nombre === this.franquiciaSeleccionada);
+        if (!esCompatible) this.guardarEnStorage({ filtroFranquicia: null });
       }
 
       if (this.opcionSeleccionada === 'franquicia' && this.marcaSeleccionada) {
-        const marcaDeLinea = productoConLinea?.linea?.marca?.nombre;
-        if (marcaDeLinea !== this.marcaSeleccionada) {
-          this.marcaSeleccionada = null;
-          if (this.esBrowser()) localStorage.removeItem('filtroMarca');
-        }
+        if (marcaDeLinea !== this.marcaSeleccionada) this.guardarEnStorage({ filtroMarca: null });
       }
     }
 
     this.actualizarFiltrosLaterales();
   }
 
+  get productosFiltrados(): Producto[] {
+    return this.productos.filter(p => {
+      const coincideFranquicia = this.franquiciaSeleccionada ? p.franquicia?.nombre === this.franquiciaSeleccionada : true;
+      const coincideMarca = this.marcaSeleccionada ? p.marca?.nombre === this.marcaSeleccionada : true;
+      const coincideLinea = this.lineaSeleccionada ? p.linea?.nombre === this.lineaSeleccionada : true;
+      return coincideFranquicia && coincideMarca && coincideLinea;
+    });
+  }
+
   resetearFiltros() {
     this.marcaSeleccionada = null;
     this.franquiciaSeleccionada = null;
     this.lineaSeleccionada = null;
-    if (this.esBrowser()) {
-      localStorage.removeItem('filtroFranquicia');
-      localStorage.removeItem('filtroMarca');
-      localStorage.removeItem('filtroLinea');
-    }
-  }
-
-  get productosFiltrados(): Producto[] {
-    let filtrados = this.productos;
-
-    if (this.franquiciaSeleccionada) {
-      filtrados = filtrados.filter(p => p.franquicia?.nombre === this.franquiciaSeleccionada);
-    }
-
-    if (this.marcaSeleccionada) {
-      filtrados = filtrados.filter(p => p.marca?.nombre === this.marcaSeleccionada);
-    }
-
-    if (this.lineaSeleccionada) {
-      filtrados = filtrados.filter(p => p.linea?.nombre === this.lineaSeleccionada);
-    }
-
-    return filtrados;
+    this.guardarEnStorage({
+      filtroFranquicia: null,
+      filtroMarca: null,
+      filtroLinea: null
+    });
   }
 
   actualizarFiltrosLaterales() {
     const filtrosMap = new Map<string, { nombre: string; logoUrl: string; lineas: Map<string, number> }>();
     const lineasContadas = new Set<string>();
 
-    const productosBase = this.productos.filter(p => {
+    const base = this.productos.filter(p => {
       if (this.opcionSeleccionada === 'franquicia' && this.franquiciaSeleccionada) {
         return p.franquicia?.nombre === this.franquiciaSeleccionada;
       }
@@ -190,134 +178,94 @@ export class CatalogoComponent implements OnInit {
       return false;
     });
 
-    productosBase.forEach(producto => {
-      const marca = producto.marca;
-      const franquicia = producto.franquicia;
-      const linea = producto.linea;
-
+    base.forEach(p => {
+      const linea = p.linea;
       if (!linea?.nombre) return;
 
-      const nombreLinea = linea.nombre;
-      const franquiciasDeLinea = linea.franquicias ?? [];
-      const marcaDeLinea = linea.marca;
-
       const idUnico = this.opcionSeleccionada === 'franquicia'
-        ? `${marcaDeLinea?.nombre}-${nombreLinea}`
-        : `${franquicia?.nombre}-${nombreLinea}`;
+        ? `${linea.marca?.nombre}-${linea.nombre}`
+        : `${p.franquicia?.nombre}-${linea.nombre}`;
 
       if (lineasContadas.has(idUnico)) return;
       lineasContadas.add(idUnico);
 
-      if (this.opcionSeleccionada === 'franquicia' && this.franquiciaSeleccionada) {
-        const lineaTieneFranquicia = franquiciasDeLinea.some(f => f.nombre === this.franquiciaSeleccionada);
+      const nombreGrupo = this.opcionSeleccionada === 'franquicia'
+        ? linea.marca?.nombre
+        : p.franquicia?.nombre;
 
-        if (marcaDeLinea && lineaTieneFranquicia) {
-          const nombreMarca = marcaDeLinea.nombre;
-          const logo = marcaDeLinea.logo?.url ? 'http://localhost:1337' + marcaDeLinea.logo.url : '';
+      const logoUrl = this.opcionSeleccionada === 'franquicia'
+        ? linea.marca?.logo?.url
+        : p.franquicia?.logo?.url;
 
-          if (!filtrosMap.has(nombreMarca)) {
-            filtrosMap.set(nombreMarca, { nombre: nombreMarca, logoUrl: logo, lineas: new Map() });
-          }
+      if (!nombreGrupo || !logoUrl) return;
 
-          const lineasMap = filtrosMap.get(nombreMarca)!.lineas;
-          lineasMap.set(nombreLinea, (lineasMap.get(nombreLinea) || 0) + 1);
-        }
+      const fullLogo = 'http://localhost:1337' + logoUrl;
+
+      if (!filtrosMap.has(nombreGrupo)) {
+        filtrosMap.set(nombreGrupo, { nombre: nombreGrupo, logoUrl: fullLogo, lineas: new Map() });
       }
 
-      if (this.opcionSeleccionada === 'marca' && this.marcaSeleccionada) {
-        const lineaEsDeMarca = marcaDeLinea?.nombre === this.marcaSeleccionada;
-
-        if (franquicia && lineaEsDeMarca) {
-          const nombreFranq = franquicia.nombre;
-          const logo = franquicia.logo?.url ? 'http://localhost:1337' + franquicia.logo.url : '';
-
-          if (!filtrosMap.has(nombreFranq)) {
-            filtrosMap.set(nombreFranq, { nombre: nombreFranq, logoUrl: logo, lineas: new Map() });
-          }
-
-          const lineasMap = filtrosMap.get(nombreFranq)!.lineas;
-          lineasMap.set(nombreLinea, (lineasMap.get(nombreLinea) || 0) + 1);
-        }
-      }
+      const lineasMap = filtrosMap.get(nombreGrupo)!.lineas;
+      lineasMap.set(linea.nombre, (lineasMap.get(linea.nombre) || 0) + 1);
     });
 
     this.filtrosLaterales = Array.from(filtrosMap.values()).map(f => ({
       nombre: f.nombre,
       logoUrl: f.logoUrl,
-      lineas: Array.from(f.lineas.entries()).map(([nombre, cantidad]) => ({
-        nombre,
-        cantidad
-      }))
+      lineas: Array.from(f.lineas.entries()).map(([nombre, cantidad]) => ({ nombre, cantidad }))
     }));
   }
 
-  filtrarMarcaDesdeFranquicia(nombreMarca: string) {
-    if (this.marcaSeleccionada === nombreMarca) {
-      this.marcaSeleccionada = null;
-      if (this.esBrowser()) localStorage.removeItem('filtroMarca');
-    } else {
-      this.marcaSeleccionada = nombreMarca;
-      if (this.esBrowser()) localStorage.setItem('filtroMarca', nombreMarca);
-    }
-
+  filtrarMarcaDesdeFranquicia(nombre: string) {
+    this.marcaSeleccionada = this.marcaSeleccionada === nombre ? null : nombre;
     this.lineaSeleccionada = null;
-    if (this.esBrowser()) localStorage.removeItem('filtroLinea');
-
+    this.guardarEnStorage({
+      filtroMarca: this.marcaSeleccionada,
+      filtroLinea: null
+    });
     this.actualizarFiltrosLaterales();
   }
 
-  filtrarFranquiciaDesdeMarca(nombreFranq: string) {
-    if (this.franquiciaSeleccionada === nombreFranq) {
-      this.franquiciaSeleccionada = null;
-      if (this.esBrowser()) localStorage.removeItem('filtroFranquicia');
-    } else {
-      this.franquiciaSeleccionada = nombreFranq;
-      if (this.esBrowser()) localStorage.setItem('filtroFranquicia', nombreFranq);
-    }
-
+  filtrarFranquiciaDesdeMarca(nombre: string) {
+    this.franquiciaSeleccionada = this.franquiciaSeleccionada === nombre ? null : nombre;
     this.lineaSeleccionada = null;
-    if (this.esBrowser()) localStorage.removeItem('filtroLinea');
-
+    this.guardarEnStorage({
+      filtroFranquicia: this.franquiciaSeleccionada,
+      filtroLinea: null
+    });
     this.actualizarFiltrosLaterales();
   }
 
   restaurarFiltrosDesdeLocalStorage() {
     if (!this.esBrowser()) return;
 
-    const tipo = localStorage.getItem('filtroTipo');
+    const tipo = localStorage.getItem('filtroTipo') as 'franquicia' | 'marca' | null;
     const franquicia = localStorage.getItem('filtroFranquicia');
     const marca = localStorage.getItem('filtroMarca');
     const linea = localStorage.getItem('filtroLinea');
 
     if (tipo === 'franquicia' && franquicia) {
+      this.opcionSeleccionada = tipo;
       this.franquiciaSeleccionada = franquicia;
-      this.opcionSeleccionada = 'franquicia';
       this.productos = this.productos.filter(p => p.franquicia?.nombre === franquicia);
     } else if (tipo === 'marca' && marca) {
+      this.opcionSeleccionada = tipo;
       this.marcaSeleccionada = marca;
-      this.opcionSeleccionada = 'marca';
       this.productos = this.productos.filter(p => p.marca?.nombre === marca);
     }
 
-    if (linea) {
-      this.lineaSeleccionada = linea;
-    }
-
+    if (linea) this.lineaSeleccionada = linea;
     this.actualizarFiltrosLaterales();
   }
 
   limpiarTodosLosFiltros() {
     this.resetearFiltros();
     this.opcionSeleccionada = 'franquicia';
-    if (this.esBrowser()) localStorage.setItem('filtroTipo', this.opcionSeleccionada);
-
-    this.productoService.obtenerProductos().subscribe((res: any) => {
-      this.productos = res.data;
-      this.actualizarFiltrosLaterales();
-    });
+    this.guardarEnStorage({ filtroTipo: 'franquicia' });
+    this.cargarProductos();
   }
 
-  @ViewChild('slider', { static: false }) slider: ElementRef | undefined;
+  @ViewChild('slider', { static: false }) slider?: ElementRef;
 
   moverSlider(direccion: number) {
     if (this.slider) {

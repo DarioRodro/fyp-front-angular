@@ -4,10 +4,9 @@
             [class.activo]="opcionSeleccionada === 'franquicia'">Franquicia</button>
         <button class="uwu" (click)="opcionSeleccionada = 'marca'"
             [class.activo]="opcionSeleccionada === 'marca'">Marca</button>
-        <button class="uwu" (click)="opcionSeleccionada = 'merch'"
-            [class.activo]="opcionSeleccionada === 'merch'">Merch</button>
+
     </div>
-    <div class="slider-contenedor" *ngIf="opcionSeleccionada !== 'merch'">
+    <div class="slider-contenedor">
         <button class="flecha" (click)="moverSlider(-1)">&#10094;</button>
 
         <div class="slider" #slider>

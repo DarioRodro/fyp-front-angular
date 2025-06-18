@@ -1,60 +1,103 @@
-<div *ngIf="loading">Cargando producto...</div>
-<div *ngIf="!loading && producto; else noEncontrado">
+<div class="ver-figura">
+    <div *ngIf="loading">Cargando producto...</div>
+    <div *ngIf="!loading && producto; else noEncontrado">
+        <div class="todo-figura">
+            <!-- Sección de imagen + información -->
 
-    <!-- Sección de imagen + información -->
-    <div class="contenedor-principal">
+            <!-- Galería de imágenes -->
+            <div class="galeria-horizontal">
+                <div class="miniaturas-vertical">
+                    <img *ngFor="let img of producto?.Imagen" [src]="'http://localhost:1337' + img.url" alt="Miniatura"
+                        (click)="seleccionarImagen(img.url)" [class.activa]="imagenSeleccionada === img.url" />
+                </div>
 
-        <!-- Galería de imágenes -->
-        <div class="galeria-imagenes">
-            <img *ngFor="let img of producto.Imagen" [src]="img.url" alt="Imagen del producto">
-        </div>
+                <div class="imagen-principal">
+                    <img [src]="'http://localhost:1337' + imagenSeleccionada" alt="Imagen principal del producto" />
+                </div>
+            </div>
 
-        <!-- Información del producto -->
-        <div class="info-producto">
-            <h1>{{ producto.Nombre }}</h1>
-            <p class="precio">{{ producto.Precio | currency:'PEN':'symbol':'1.2-2':'es-PE' }}</p>
 
-            <p><strong>Tamaño:</strong> {{ producto.Tamano }}</p>
-            <p><strong>Stock:</strong> {{ producto.Stock }}</p>
-            <p><strong>Material:</strong> {{ producto.Material }}</p>
-            <p><strong>Categoría:</strong> {{ producto.categories?.[0]?.estado }}</p>
+
+            <!-- Información del producto -->
+            <div class="descrip">
+                <h2 class="titulo">{{ producto.Nombre }}</h2>
+                <h2 class="precio">{{ producto.Precio | currency:'PEN':'symbol':'1.2-2':'es-PE' }}</h2>
+                <h3><strong>Stock:</strong> {{ producto.Stock }}</h3>
+                <div class="des-des">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th class="name"> Franquicia </th>
+                                <th class="respuesta"> {{ producto.franquicia?.nombre}}</th>
+                            </tr>
+                            <tr>
+                                <th class="name"> Marca</th>
+                                <th class="respuesta"> {{ producto.marca?.nombre }} </th>
+                            </tr>
+                            <tr>
+                                <th class="name"> Línea</th>
+                                <th class="respuesta"> {{ producto.linea?.nombre }} </th>
+                            </tr>
+                            <tr>
+                                <th class="name"> Tamaño </th>
+                                <th class="respuesta"> {{ producto.Tamano }} </th>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="botonsito">
+                    <button>Añadir al Carrito</button>
+                </div>
+            </div>
+
+            <!-- Sección de detalles y reseña -->
+            <!-- Tabla de detalles -->
+            <div class="detalles">
+                <h2>Detalles</h2>
+                <div class="detalles-especificos">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th class="nombre">CATEGORÍA</th>
+                                <th class="anwser"> {{ producto.categories?.[0]?.estado }}</th>
+                            </tr>
+                            <tr>
+                                <th class="nombre">CÓDIGO</th>
+                                <th class="anwser"> uwu </th>
+                            </tr>
+                            <tr>
+                                <th class="nombre">PROCEDENCIA</th>
+                                <th class="anwser"> Japón </th>
+                            </tr>
+                            <tr>
+                                <th class="nombre">MATERIAL</th>
+                                <th class="anwser"> {{ producto.Material }} </th>
+                            </tr>
+                            <tr>
+                                <th class="nombre">TAGS</th>
+                                <th class="anwser"> {{ producto.Tags }} </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- Reseña -->
+            <div class="reseña">
+                <h2>Reseña</h2>
+                <h1> " {{ producto.Resena }} "</h1>
+            </div>
         </div>
 
     </div>
-
-    <!-- Sección de detalles y reseña -->
-    <div class="detalles-seccion">
-
-        <!-- Tabla de detalles -->
-        <div class="tabla-detalles">
-            <table>
-                <tbody>
-                    <tr>
-                        <td>Franquicia:</td>
-                        <td>{{ producto.franquicia?.nombre }}</td>
-                    </tr>
-                    <tr>
-                        <td>Marca:</td>
-                        <td>{{ producto.marca?.nombre }}</td>
-                    </tr>
-                    <!-- etc -->
-                </tbody>
-            </table>
-
+    <ng-template #noEncontrado>
+        <div style="margin: 2rem;">
+            <h2>Producto No Encontrado</h2>
+            <p>Lo sentimos, no pudimos encontrar el producto solicitado.</p>
         </div>
+    </ng-template>
+    <section *ngIf="productosRelacionados.length > 0" class="relacionados">
+        <h2>Podría interesarte</h2>
+        <app-prb-productos [productos]="productosRelacionados"></app-prb-productos>
+    </section>
 
-        <!-- Reseña -->
-        <div class="reseña">
-            <h2>Reseña</h2>
-            <p>{{ producto.Resena }}</p>
-        </div>
 
-    </div>
 </div>
-
-<ng-template #noEncontrado>
-    <div style="margin: 2rem;">
-        <h2>Producto No Encontrado</h2>
-        <p>Lo sentimos, no pudimos encontrar el producto solicitado.</p>
-    </div>
-</ng-template>

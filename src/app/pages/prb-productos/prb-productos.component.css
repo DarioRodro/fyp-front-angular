@@ -61,6 +61,7 @@
 .producto {
   position: relative;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .etiqueta-categoria {
@@ -75,11 +76,17 @@
   text-transform: uppercase;
   z-index: 2;
 }
-/* 🎨 Estilos por categoría */
+
 .etiqueta-categoria.preventa {
-  background-color: #d32f2f; /* rojo */
+  background-color: #d32f2f; 
 }
 
 .etiqueta-categoria.novedades {
-  background-color: #1976d2; /* azul */
+  background-color: #b100e7; 
+}
+
+.producto-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
 }
