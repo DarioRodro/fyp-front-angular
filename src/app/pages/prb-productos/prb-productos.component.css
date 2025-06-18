@@ -56,3 +56,30 @@
   height: auto;
   width: 100%;
 }
+
+/*etiquetas*/
+.producto {
+  position: relative;
+  overflow: hidden;
+}
+
+.etiqueta-categoria {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: crimson;
+  color: white;
+  padding: 3px 8px;
+  font-size: 0.75rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+  z-index: 2;
+}
+/* 🎨 Estilos por categoría */
+.etiqueta-categoria.preventa {
+  background-color: #d32f2f; /* rojo */
+}
+
+.etiqueta-categoria.novedades {
+  background-color: #1976d2; /* azul */
+}

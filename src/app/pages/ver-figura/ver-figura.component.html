@@ -1,0 +1,60 @@
+<div *ngIf="loading">Cargando producto...</div>
+<div *ngIf="!loading && producto; else noEncontrado">
+
+    <!-- Sección de imagen + información -->
+    <div class="contenedor-principal">
+
+        <!-- Galería de imágenes -->
+        <div class="galeria-imagenes">
+            <img *ngFor="let img of producto.Imagen" [src]="img.url" alt="Imagen del producto">
+        </div>
+
+        <!-- Información del producto -->
+        <div class="info-producto">
+            <h1>{{ producto.Nombre }}</h1>
+            <p class="precio">{{ producto.Precio | currency:'PEN':'symbol':'1.2-2':'es-PE' }}</p>
+
+            <p><strong>Tamaño:</strong> {{ producto.Tamano }}</p>
+            <p><strong>Stock:</strong> {{ producto.Stock }}</p>
+            <p><strong>Material:</strong> {{ producto.Material }}</p>
+            <p><strong>Categoría:</strong> {{ producto.categories?.[0]?.estado }}</p>
+        </div>
+
+    </div>
+
+    <!-- Sección de detalles y reseña -->
+    <div class="detalles-seccion">
+
+        <!-- Tabla de detalles -->
+        <div class="tabla-detalles">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>Franquicia:</td>
+                        <td>{{ producto.franquicia?.nombre }}</td>
+                    </tr>
+                    <tr>
+                        <td>Marca:</td>
+                        <td>{{ producto.marca?.nombre }}</td>
+                    </tr>
+                    <!-- etc -->
+                </tbody>
+            </table>
+
+        </div>
+
+        <!-- Reseña -->
+        <div class="reseña">
+            <h2>Reseña</h2>
+            <p>{{ producto.Resena }}</p>
+        </div>
+
+    </div>
+</div>
+
+<ng-template #noEncontrado>
+    <div style="margin: 2rem;">
+        <h2>Producto No Encontrado</h2>
+        <p>Lo sentimos, no pudimos encontrar el producto solicitado.</p>
+    </div>
+</ng-template>

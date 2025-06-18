@@ -1,6 +1,13 @@
 <div [ngClass]="modo === 'horizontal' ? 'productos-lista-horizontal' :  'productos-grid' ">
 
     <div class="producto" *ngFor="let producto of productos">
+
+        <div *ngIf="producto.categories?.length" class="etiqueta-categoria"
+            [ngClass]="producto.categories[0].estado?.toLowerCase()">
+            {{ producto.categories[0].estado | titlecase }}
+        </div>
+
+
         <div *ngIf="producto.Imagen?.length">
             <div *ngFor="let img of producto.Imagen">
                 <img *ngIf="producto.Imagen.length > 0" [src]="'http://localhost:1337' + producto.Imagen[0].url"
