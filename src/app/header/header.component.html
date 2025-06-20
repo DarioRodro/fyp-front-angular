@@ -2,8 +2,18 @@
     <div class="top-header">
         <a routerLink=""><img src="./assets/LOGO-SIN-FONDO-BLANCO.png" alt=""></a>
         <div class="barra">
-            <input type="text" id="searchInput" placeholder="Banpresto, SEGA,..." autocomplete="off" />
-            <div id="resultados" class="resultados-previa"></div>
+            <input type="text" id="searchInput" [(ngModel)]="textoBusqueda" (input)="buscar()"
+                placeholder="Banpresto, SEGA,..." autocomplete="off" />
+
+            <div *ngIf="resultados.length > 0" class="resultados-previa">
+                <div class="resultado" *ngFor="let producto of resultados" (click)="seleccionarProducto(producto.id)">
+                    <img *ngIf="producto.Imagen?.[0]?.url" [src]="'http://localhost:1337' + producto.Imagen[0].url"
+                        alt="img" width="50" />
+                    <span>{{ producto.Nombre }}</span>
+                </div>
+            </div>
+
+
         </div>
         <div class="carrito">
             <img src="assets/carrito.png" alt="Carrito" width="30" />

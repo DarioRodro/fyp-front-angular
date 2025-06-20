@@ -26,6 +26,10 @@ export interface Category {
   estado: string;
 }
 
+export interface Tag {
+  id: number;
+  nombre: string;
+}
 export interface Producto {
   id: number;
   Nombre: string;
@@ -40,4 +44,5 @@ export interface Producto {
   marca?: Marca;
   linea?: Linea;
   categories?: Category[];
+  tags?: Tag[];
 }
