@@ -2,14 +2,20 @@
     <div class="top-header">
         <a routerLink=""><img src="./assets/LOGO-SIN-FONDO-BLANCO.png" alt=""></a>
         <div class="barra">
-            <input type="text" id="searchInput" [(ngModel)]="textoBusqueda" (input)="buscar()"
+            <input #searchBox type="text" id="searchInput" [(ngModel)]="textoBusqueda" (input)="buscar()"
                 placeholder="Banpresto, SEGA,..." autocomplete="off" />
 
-            <div *ngIf="resultados.length > 0" class="resultados-previa">
-                <div class="resultado" *ngFor="let producto of resultados" (click)="seleccionarProducto(producto.id)">
+            <div *ngIf="resultados.length > 0" #resultadosBox class="resultados-previa">
+                <div class="resultado" *ngFor="let producto of resultados; let i = index"
+                    [class.activo]="i === selectedIndex" (click)="seleccionarProducto(producto)">
+
                     <img *ngIf="producto.Imagen?.[0]?.url" [src]="'http://localhost:1337' + producto.Imagen[0].url"
                         alt="img" width="50" />
-                    <span>{{ producto.Nombre }}</span>
+                    <div class="info">
+                        <h2 class="resultado-nombre">{{ producto.Nombre }} </h2>
+                        <h2 class="resultado-precio">{{ producto.Precio | currency:'PEN':'symbol':'1.2-2':'es-PE' }}
+                        </h2>
+                    </div>
                 </div>
             </div>
 

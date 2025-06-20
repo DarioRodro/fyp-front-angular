@@ -39,32 +39,39 @@ header {
     position: relative;
     display: inline-block;
 }
-
-.resultados-previa{
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: #fff;
-    border: 1px solid #ccc;
-    max-height: 300px;
-    overflow-y: auto;
-    z-index: 10;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+.resultados-previa {
+  position: absolute;
+  background: white;
+  top: 100%;
+  left: 0;
+  right: 0;
+  border: 1px solid #ccc;
+  z-index: 999;
+  height: auto;
+  max-height: 150px;
+  overflow-y: auto;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  scroll-behavior: smooth;
 }
-.resultado-item {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    gap: 10px;
-    border-bottom: 1px solid #eee;
-    cursor: pointer;
+
+.resultado {
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
     color: #000;
 }
 
-.resultado-item img {
-    width: 50px;
-    height: 50px;
+.resultado:hover {
+  background-color: #e0e0e0;
+}
+
+.resultado img {
+    width: 60px;
+    height: 60px;
     object-fit: cover;
     border-radius: 5px;
 }
@@ -74,23 +81,22 @@ header {
 }
 
 .resultado-nombre {
-  font-weight: bold;
+  font-weight: normal;
   margin-bottom: 4px;
+  font-size: 1em;
 }
 
 .resultado-precio {
-  color: green;
+  color: rgb(243, 17, 35);
   font-size: 0.9em;
 }
 
-.resultado-ver {
-  padding: 5px 10px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  text-decoration: none;
+
+.resultado.activo {
+  background-color: #d9eaff;
 }
+
+
 .barra button{   
     position: absolute;
     top: 50%;
@@ -210,25 +216,3 @@ nav {
     color: rgb(255, 255, 255);
 }
 
-.resultados-previa {
-  position: absolute;
-  background: white;
-  border: 1px solid #ccc;
-  z-index: 999;
-  width: 300px;
-  max-height: 300px;
-  overflow-y: auto;
-}
-
-.resultado {
-  padding: 8px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  border-bottom: 1px solid #eee;
-}
-
-.resultado:hover {
-  background-color: #f5f5f5;
-}
