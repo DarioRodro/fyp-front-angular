@@ -1,11 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ProductoService } from '../services/producto.service';
 import { ElementRef, HostListener, ViewChild } from '@angular/core';
-
+import { FranquiciaService } from '../services/franquicia.service';
+import { MarcaService } from '../services/marca.service';
+import { Franquicia, Marca } from '../models/producto.model';
 
 @Component({
   selector: 'app-header',
@@ -14,14 +16,33 @@ import { ElementRef, HostListener, ViewChild } from '@angular/core';
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   activeMenu: string | null = null;
   textoBusqueda: string = '';
   resultados: any[] = [];
+  franquicias: Franquicia[] = [];
+  marcas: Marca[] = [];
+
   @ViewChild('searchBox') searchBox!: ElementRef;
   @ViewChild('resultadosBox') resultadosBox!: ElementRef;
 
-  constructor(private productoService: ProductoService, private router: Router) {}
+  constructor(private productoService: ProductoService,private franquiciaService: FranquiciaService,
+    private marcaService: MarcaService, private router: Router) {}
+
+    ngOnInit(): void {
+    this.franquiciaService.obtenerFranquicias().subscribe(res => {
+      this.franquicias = res.data;
+    });
+    this.marcaService.obtenerMarcas().subscribe(res => {
+      this.marcas = res.data;
+    });
+  }
+
+  irACatalogoConFiltro(tipo: 'franquicia' | 'marca', nombre: string) {
+    this.router.navigate(['/catalogo'], {
+      queryParams: { tipo, nombre }
+    });
+  }
 
   @HostListener('document:click', ['$event'])
   onClickOutside(event: MouseEvent) {

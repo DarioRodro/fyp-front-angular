@@ -6,6 +6,7 @@ import { FranquiciaService } from '../../services/franquicia.service';
 import { MarcaService } from '../../services/marca.service';
 import { PrbProductosComponent } from '../prb-productos/prb-productos.component';
 import { Producto } from '../../models/producto.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-catalogo',
@@ -23,6 +24,8 @@ export class CatalogoComponent implements OnInit {
     logoUrl: string;
     lineas: { nombre: string; cantidad: number }[];
   }[] = [];
+  filtroTipo: 'franquicia' | 'marca' | null = null;
+  filtroNombre: string | null = null;
 
   opcionSeleccionada: 'franquicia' | 'marca' = 'franquicia';
   marcaSeleccionada: string | null = null;
@@ -33,6 +36,7 @@ export class CatalogoComponent implements OnInit {
     private productoService: ProductoService,
     private franquiciaService: FranquiciaService,
     private marcaService: MarcaService,
+    private route: ActivatedRoute,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
@@ -40,6 +44,17 @@ export class CatalogoComponent implements OnInit {
     this.cargarProductos(true);
     this.cargarFranquicias();
     this.cargarMarcas();
+    this.route.queryParams.subscribe(params => {
+      this.filtroTipo = params['tipo'];
+      this.filtroNombre = params['nombre'];
+
+      if (this.filtroTipo && this.filtroNombre) {
+  console.log(`Filtrar por ${this.filtroTipo}: ${this.filtroNombre}`);
+  
+  this.aplicarFiltro(this.filtroTipo as 'franquicia' | 'marca', this.filtroNombre); // 👈 AGREGA ESTO
+}
+
+    });
   }
 
   private esBrowser(): boolean {

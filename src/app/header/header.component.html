@@ -4,6 +4,12 @@
         <div class="barra">
             <input #searchBox type="text" id="searchInput" [(ngModel)]="textoBusqueda" (input)="buscar()"
                 placeholder="Banpresto, SEGA,..." autocomplete="off" />
+            <button (click)="buscar()" class="icono-lupa" aria-label="Buscar">
+                <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="20" fill="white">
+                    <path
+                        d="M15.5 14h-.79l-.28-.27a6.471 6.471 0 001.48-5.34C15.19 5.59 12.6 3 9.5 3S3.81 5.59 3.81 8.39 6.4 13.78 9.5 13.78c1.61 0 3.09-.59 4.22-1.56l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+                </svg>
+            </button>
 
             <div *ngIf="resultados.length > 0" #resultadosBox class="resultados-previa">
                 <div class="resultado" *ngFor="let producto of resultados; let i = index"
@@ -21,52 +27,29 @@
 
 
         </div>
-        <div class="carrito">
+        <!-- CARRITO Sin funcionar
+          <div class="carrito">
             <img src="assets/carrito.png" alt="Carrito" width="30" />
             <span class="contador">3</span>
-        </div>
+        </div>-->
     </div>
     <nav class="barra-nav" (mouseleave)="closeMenu()">
         <ul class="nav-list">
             <li class="has-submenu" (mouseenter)="openMenu('franquicia')">FRANQUICIA</li>
             <li class="has-submenu" (mouseenter)="openMenu('marcas')">MARCA</li>
-            <li class="has-submenu"><a [routerLink]="['/catalogo']">CATÁLOGO</a></li>
+            <li class="has-submenu"><a [routerLink]="['/revista']">CATÁLOGO</a></li>
             <li class="has-submenu"><a [routerLink]="['/quienes-somos']">NOSOTROS</a></li>
         </ul>
         <div class="submenu-bar" *ngIf="activeMenu">
             <div class="submenu-content" *ngIf="activeMenu === 'franquicia'">
-                <a href="#">Sailor Moon</a> |
-                <a href="#">Digimon</a> |
-                <a href="#">Hunter x Hunter</a> |
-                <a href="#">Dragon Ball</a> |
-                <a href="#">Naruto</a> |
-                <a href="#">One Piece</a> |
-                <a href="#">My Hero Academia</a> |
-                <a href="#">Attack on Titan</a> |
-                <a href="#">Spy Family</a> |
-                <a href="#">Yu-Gi-Oh!</a> |
-                <a href="#">Kimetsu No Yaiba</a> |
-                <a href="#">Waifus</a> |
-                <a href="#">Evangelion</a> |
-                <a href="#">Princesas</a> |
-                <a href="#">Marvel</a> |
-                <a href="#">DC</a> |
-                <a href="#">Hello Kitty</a> |
-                <a href="#">Overlord</a> |
-                <a href="#">Jujutsu Kaisen</a> |
-                <a href="#">Hatsune Miku</a> |
-                <a href="#">Kaijus</a> |
+                <a *ngFor="let f of franquicias" (click)="irACatalogoConFiltro('franquicia', f.nombre)">
+                    | {{ f.nombre }}
+                </a>
             </div>
             <div class="submenu-content" *ngIf="activeMenu === 'marcas'">
-                <a href="#">BANPRESTO</a> |
-                <a href="#">SEGA</a> |
-                <a href="#">BANDAI</a> |
-                <a href="#">FURYU</a> |
-                <a href="#">ICHIBAN KUJI</a> |
-                <a href="#">FIGMA</a> |
-                <a href="#">KOTOBUKIYA</a> |
-                <a href="#">TAMASHII NATIONS</a> |
-                <a href="#">TAITO</a> |
+                <a *ngFor="let m of marcas" (click)="irACatalogoConFiltro('marca', m.nombre)">
+                    | {{ m.nombre }}
+                </a>
             </div>
         </div>
     </nav>

@@ -112,7 +112,7 @@ header {
     color: rgb(150, 19, 238);
   }
 .barra input{
-    padding-right: 35px; /* Espacio para el icono */
+    padding-right: 45px; /* Espacio para el icono */
     padding-left: 10px;
     height: 35px;
     width: 550px;
@@ -193,6 +193,7 @@ nav {
     z-index: 1000;
     padding: 10px 0;
     border-top: 2px solid #ccc;
+    cursor: pointer;
 
 }
 
@@ -214,5 +215,34 @@ nav {
 .has-submenu a{
     text-decoration: none;
     color: rgb(255, 255, 255);
+    cursor: pointer;
+}
+
+.icono-lupa {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 8px;
+  padding: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.icono-lupa:hover {
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.icono-lupa svg {
+  fill: white;
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
 }
 
