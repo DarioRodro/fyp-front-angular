@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef, ViewChild, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser, CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { ProductoService } from '../../services/producto.service';
 import { FranquiciaService } from '../../services/franquicia.service';
 import { MarcaService } from '../../services/marca.service';
@@ -37,23 +37,53 @@ export class CatalogoComponent implements OnInit {
     private franquiciaService: FranquiciaService,
     private marcaService: MarcaService,
     private route: ActivatedRoute,
+    private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   ngOnInit(): void {
-    this.cargarProductos(true);
-    this.cargarFranquicias();
-    this.cargarMarcas();
-    this.route.queryParams.subscribe(params => {
-      this.filtroTipo = params['tipo'];
-      this.filtroNombre = params['nombre'];
+  this.cargarFranquicias();
+  this.cargarMarcas();
 
-      if (this.filtroTipo && this.filtroNombre) {
-  console.log(`Filtrar por ${this.filtroTipo}: ${this.filtroNombre}`);
-  
-  this.aplicarFiltro(this.filtroTipo as 'franquicia' | 'marca', this.filtroNombre); // 👈 AGREGA ESTO
+  this.route.queryParams.subscribe(async params => {
+    const tipo = params['tipo'] as 'franquicia' | 'marca' | null;
+    const nombre = params['nombre'] ?? null;
+    const linea = params['linea'] ?? null;
+
+    this.filtroTipo = tipo;
+    this.filtroNombre = nombre;
+    this.lineaSeleccionada = linea;
+
+    if (tipo && nombre) {
+      await this.aplicarFiltro(tipo, nombre, false); // 👈 sin actualizar la URL
+    } else {
+      this.cargarProductos();
+    }
+
+    if (linea) {
+      this.guardarEnStorage({ filtroLinea: linea });
+    }
+  });
 }
 
+
+  private actualizarQueryParams() {
+    const queryParams: any = {
+      tipo: this.opcionSeleccionada,
+    };
+    if (this.opcionSeleccionada === 'franquicia' && this.franquiciaSeleccionada) {
+      queryParams.nombre = this.franquiciaSeleccionada;
+    } else if (this.opcionSeleccionada === 'marca' && this.marcaSeleccionada) {
+      queryParams.nombre = this.marcaSeleccionada;
+    }
+    if (this.lineaSeleccionada) {
+      queryParams.linea = this.lineaSeleccionada;
+    }
+
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams,
+      queryParamsHandling: 'merge',
     });
   }
 
@@ -98,9 +128,15 @@ export class CatalogoComponent implements OnInit {
     this.resetearFiltros();
     this.cargarProductos();
     this.guardarEnStorage({ filtroTipo: opcion });
+    this.actualizarQueryParams();
   }
 
-  private aplicarFiltro(tipo: 'franquicia' | 'marca', nombre: string): void {
+  private aplicarFiltro(
+  tipo: 'franquicia' | 'marca',
+  nombre: string,
+  actualizarURL: boolean = true
+): Promise<void> {
+  return new Promise((resolve) => {
     this.productoService.obtenerProductos().subscribe((res: any) => {
       this.productos = res.data.filter((p: any) =>
         tipo === 'franquicia'
@@ -111,18 +147,35 @@ export class CatalogoComponent implements OnInit {
       this.opcionSeleccionada = tipo;
       this.franquiciaSeleccionada = tipo === 'franquicia' ? nombre : null;
       this.marcaSeleccionada = tipo === 'marca' ? nombre : null;
-      this.lineaSeleccionada = null;
+      this.lineaSeleccionada = this.lineaSeleccionada ?? null;
 
       this.guardarEnStorage({
         filtroTipo: tipo,
-        filtroFranquicia: tipo === 'franquicia' ? nombre : null,
-        filtroMarca: tipo === 'marca' ? nombre : null,
-        filtroLinea: null
+        filtroFranquicia: this.franquiciaSeleccionada,
+        filtroMarca: this.marcaSeleccionada,
+        filtroLinea: this.lineaSeleccionada,
       });
 
       this.actualizarFiltrosLaterales();
+
+      // ✅ Actualiza la URL solo si fue solicitado
+      if (actualizarURL) {
+        const queryParams: any = {
+          tipo: tipo,
+          nombre: nombre,
+        };
+        if (this.lineaSeleccionada) {
+          queryParams['linea'] = this.lineaSeleccionada;
+        }
+
+        this.routeTo(queryParams);
+      }
+
+      resolve();
     });
-  }
+  });
+}
+
 
   filtrarPorFranquicia(nombre: string) {
     this.aplicarFiltro('franquicia', nombre);
@@ -157,6 +210,7 @@ export class CatalogoComponent implements OnInit {
     }
 
     this.actualizarFiltrosLaterales();
+    this.actualizarQueryParams();
   }
 
   get productosFiltrados(): Producto[] {
@@ -239,6 +293,7 @@ export class CatalogoComponent implements OnInit {
       filtroLinea: null
     });
     this.actualizarFiltrosLaterales();
+    this.actualizarQueryParams();
   }
 
   filtrarFranquiciaDesdeMarca(nombre: string) {
@@ -249,6 +304,7 @@ export class CatalogoComponent implements OnInit {
       filtroLinea: null
     });
     this.actualizarFiltrosLaterales();
+    this.actualizarQueryParams();
   }
 
   restaurarFiltrosDesdeLocalStorage() {
@@ -271,6 +327,7 @@ export class CatalogoComponent implements OnInit {
 
     if (linea) this.lineaSeleccionada = linea;
     this.actualizarFiltrosLaterales();
+    this.actualizarQueryParams();
   }
 
   limpiarTodosLosFiltros() {
@@ -278,6 +335,7 @@ export class CatalogoComponent implements OnInit {
     this.opcionSeleccionada = 'franquicia';
     this.guardarEnStorage({ filtroTipo: 'franquicia' });
     this.cargarProductos();
+    this.actualizarQueryParams();
   }
 
   @ViewChild('slider', { static: false }) slider?: ElementRef;
@@ -287,4 +345,10 @@ export class CatalogoComponent implements OnInit {
       this.slider.nativeElement.scrollLeft += direccion * 200;
     }
   }
+  private routeTo(queryParams: any) {
+  if (isPlatformBrowser(this.platformId)) {
+    history.replaceState(null, '', `/catalogo?${new URLSearchParams(queryParams).toString()}`);
+  }
+}
+
 }

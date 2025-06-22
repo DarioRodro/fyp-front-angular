@@ -1,10 +1,15 @@
 <div class="cuatro-anuncios">
-    <img src="assets/qposketanunci.png" alt="">
-    <img src="assets/match-maker-anunc.png" alt="">
+    <a [routerLink]="['/catalogo']" [queryParams]="{ tipo: 'marca', nombre: 'BANPRESTO', linea: 'Match Makers' }"> <img
+            src="assets/qposketanunci.png" alt=""> </a>
+
+    <a [routerLink]="['/catalogo']" [queryParams]="{ tipo: 'marca', nombre: 'BANPRESTO', linea: 'Match Makers' }"> <img
+            src="assets/match-maker-anunc.png" alt=""></a>
+
     <img src="assets/gganunci.png" alt="">
-    <img src="assets/peluchepokemo.png" alt="">
+    <a [routerLink]="['/catalogo']" [queryParams]="{ tipo: 'franquicia', nombre: 'Pokemon', linea: 'Peluches' }"><img
+            src="assets/peluchepokemo.png" alt=""></a>
 </div>
-<div class="pre-venta" id="pre-venta">
+<div class="pre-venta" *ngIf="seccionActiva === 'preventa' || seccionActiva === 'todas'">
     <h1> PRE-VENTA </h1>
     <div *ngIf="productosPreventa.length > 0; else sinPreventa" class="carousel-container">
         <button class="carousel-button left" (click)="moverSlider(-1)">&#10094;</button>
@@ -19,12 +24,12 @@
         <p>No hay productos en preventa.</p>
     </ng-template>
 </div>
-<div class="novedades" id="novedades">
+<div class="novedades" *ngIf="seccionActiva === 'novedades' || seccionActiva === 'todas'">
     <h1> NOVEDADES </h1>
     <div class="prod-novedades">
         <app-prb-productos [productos]="productosNovedades" modo="grilla"></app-prb-productos>
         <div class="vertodo">
-            <button class="ver"> Ver Todos los Productos</button>
+            <button class="ver" [routerLink]="['/catalogo']"> Ver Todos los Productos</button>
         </div>
     </div>
 </div>

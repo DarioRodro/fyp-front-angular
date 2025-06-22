@@ -10,7 +10,7 @@ export const routes: Routes = [
     {path: '', redirectTo: 'inicio', pathMatch: 'full'},
     {path: 'inicio', component: InicioComponent},
     {path: 'quienes-somos', component: QuienesSomosComponent},
-    {path: 'catalogo', component: CatalogoComponent}, 
+    {path: 'catalogo', component: CatalogoComponent, runGuardsAndResolvers: 'paramsOrQueryParamsChange'}, 
     {path: 'prb-productos', component: PrbProductosComponent},
     {path: 'revista', component: RevistaComponent},
     {path: 'figura/:slug', loadComponent: () => import('./pages/ver-figura/ver-figura.component').then(m => m.VerFiguraComponent)}

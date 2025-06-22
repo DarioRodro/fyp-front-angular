@@ -74,7 +74,12 @@
                             </tr>
                             <tr>
                                 <th class="nombre">TAGS</th>
-                                <th class="anwser"> {{ producto.tags }} </th>
+                                <th class="anwser">
+                                    <span *ngFor="let tag of producto.tags; let last = last">
+                                        {{ tag.nombre }}<span *ngIf="!last">, </span>
+                                    </span>
+                                </th>
+
                             </tr>
                         </tbody>
                     </table>

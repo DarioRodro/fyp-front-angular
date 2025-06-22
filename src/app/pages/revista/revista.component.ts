@@ -2,21 +2,33 @@ import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { ProductoService } from '../../services/producto.service';
 import { Producto } from '../../models/producto.model';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { PrbProductosComponent } from '../prb-productos/prb-productos.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-revista',
-  imports: [CommonModule, PrbProductosComponent],
+  standalone: true,
+  imports: [CommonModule, PrbProductosComponent, RouterModule],
   templateUrl: './revista.component.html',
   styleUrl: './revista.component.css'
 })
 export class RevistaComponent implements OnInit {
 productosPreventa: Producto[] = [];
 productosNovedades: Producto[] = [];
+seccionActiva: 'preventa' | 'novedades' | 'todas' = 'todas';
 
-constructor(private productoService: ProductoService) {}
+constructor(private productoService: ProductoService, private route: ActivatedRoute) {}
 
 ngOnInit(): void {
+  this.route.queryParams.subscribe(params => {
+    const seccion = params['seccion'];
+    if (seccion === 'preventa' || seccion === 'novedades') {
+      this.seccionActiva = seccion;
+    } else {
+      this.seccionActiva = 'todas'; // por defecto
+    }
+  });
   this.productoService.obtenerProductos().subscribe((res) => {
     const todos = res.data;
 

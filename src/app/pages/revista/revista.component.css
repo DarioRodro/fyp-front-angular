@@ -97,11 +97,11 @@ h1{
 
 .ver {
   text-decoration: none;
-  color: #000000;
+  color: #ffffff;
   font-family: 'K2D', sans-serif;
   font-size: 25px;
   font-weight: bold;
-  background: linear-gradient(to right, rgb(255, 255, 255), rgba(0, 177, 208, 0.562), #222dfb8e);
+  background: linear-gradient(to right, rgb(0, 177, 208), rgb(34, 45, 251));
   border:2px solid ;
   border-radius: 15px;
   cursor: pointer;
