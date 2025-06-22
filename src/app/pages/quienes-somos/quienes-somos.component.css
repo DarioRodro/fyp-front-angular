@@ -121,7 +121,7 @@ h2 {
     height: auto;
 }
 
-#map {
+#map-feria, #map-magda {
 	height: 280px;
 	width:  650px;
     border: #0F9BFF solid 3px;

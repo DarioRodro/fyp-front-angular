@@ -46,3 +46,4 @@ export interface Producto {
   categories?: Category[];
   tags?: Tag[];
 }
+

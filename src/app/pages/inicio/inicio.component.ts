@@ -1,13 +1,13 @@
-import { CommonModule } from '@angular/common';
+/// <reference types="google.maps" />
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { isPlatformBrowser } from '@angular/common';
 import { FranquiciaService } from '../../services/franquicia.service';
-import { Franquicia } from '../../models/producto.model';
+import { Franquicia, Marca } from '../../models/producto.model';
 import { HttpClientModule } from '@angular/common/http';
 import { MarcaService } from '../../services/marca.service';
-import { Marca } from '../../models/producto.model';
-
+import { environment } from '../../../environments/environment';
+import { Loader } from '@googlemaps/js-api-loader';
 
 @Component({
   selector: 'app-inicio',
@@ -19,38 +19,33 @@ import { Marca } from '../../models/producto.model';
 export class InicioComponent implements OnInit, OnDestroy {
   franquicias: Franquicia[] = [];
   marcas: Marca[] = [];
-  images: string[] = [
-    'assets/slider1.png',
-    'assets/slider2.png',
-    'assets/slider3.png',
-  ];
-  currentIndex: number = 0;
+  images: string[] = ['assets/slider1.png', 'assets/slider2.png', 'assets/slider3.png'];
+  currentIndex = 0;
   intervalId: any;
   isBrowser: boolean;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object, private franquiciaService: FranquiciaService, private marcaService: MarcaService) {
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private franquiciaService: FranquiciaService,
+    private marcaService: MarcaService
+  ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
 
   ngOnInit() {
     if (this.isBrowser) {
       this.startAutoSlide();
+      this.cargarGoogleMaps();
     }
+
     this.franquiciaService.obtenerFranquicias().subscribe({
-      next: (res) => {
-        this.franquicias = res.data;
-      },
-      error: (err) => {
-        console.error('Error al obtener franquicias:', err);
-      }
+      next: (res) => (this.franquicias = res.data),
+      error: (err) => console.error('Error al obtener franquicias:', err),
     });
+
     this.marcaService.obtenerMarcas().subscribe({
-      next: (res) => {
-        this.marcas = res.data;
-      },
-      error: (err) => {
-        console.error('Error al obtener marcas:', err);
-      }
+      next: (res) => (this.marcas = res.data),
+      error: (err) => console.error('Error al obtener marcas:', err),
     });
   }
 
@@ -87,5 +82,45 @@ export class InicioComponent implements OnInit, OnDestroy {
     clearInterval(this.intervalId);
     this.startAutoSlide();
   }
-  
+
+  // ✅ NUEVO: Usar loader oficial de Google
+  private async cargarGoogleMaps() {
+    const loader = new Loader({
+      apiKey: environment.googleMapsApiKey,
+      version: 'weekly',
+      libraries: ['marker']
+    });
+
+    try {
+      const google = await loader.load();
+      const geocoder = new google.maps.Geocoder();
+      const { AdvancedMarkerElement } = await google.maps.importLibrary('marker') as google.maps.MarkerLibrary;
+
+      const direccion = 'WXR8+25F, La Victoria 15033';
+      const contenedor = document.getElementById('mapa');
+
+      if (!contenedor) return;
+
+      geocoder.geocode({ address: direccion }, (results, status) => {
+        if (status === 'OK' && results && results[0].geometry?.location) {
+          const map = new google.maps.Map(contenedor, {
+            center: results[0].geometry.location,
+            zoom: 15,
+            mapId: 'faa74c3baedaa555da8bb54a', // tu mapId aquí
+          });
+
+          new AdvancedMarkerElement({
+            map,
+            position: results[0].geometry.location,
+            title: direccion,
+          });
+        } else {
+          console.error('No se pudo geocodificar la dirección:', status);
+        }
+      });
+
+    } catch (err) {
+      console.error('Error cargando Google Maps:', err);
+    }
+  }
 }
