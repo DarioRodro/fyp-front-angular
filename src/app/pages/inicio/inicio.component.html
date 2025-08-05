@@ -2,7 +2,12 @@
     <div class="slider-container" (click)="resetInterval()">
         <div class="slider" [style.transform]="getSliderTransform()">
             <div class="slide" *ngFor="let imagen of images">
-                <a [routerLink]="['/catalogo']"><img [src]="imagen" alt="slide"></a>
+                <a [routerLink]="['/catalogo']">
+                    <picture>
+                        <source [srcset]="imagen.mobile" media="(max-width: 1040px)" />
+                        <img [src]="imagen.desktop" alt="slide">
+                    </picture>
+                </a>
             </div>
         </div>
         <div class="button">
@@ -20,46 +25,42 @@
         <h1>¿Qué estas buscando?</h1>
         <div class="seccion-buscando">
             <div class="figu-1">
-                <img src="./assets/productos/deku-sinfondo.png" alt="Figura de Deku My Hero Academia" class="figu-figu"
+                <img src="/assets/productos/deku-sinfondo.png" alt="Figura de Deku My Hero Academia" class="figu-figu"
                     style="left: -80px;">
                 <div class="info-figu">
-                    <h2 style="text-align:left; font-size: 21px;">Figuras de Colección</h2>
+                    <h2>Figuras de Colección</h2>
                     <p>desde</p>
-                    <h2 style="text-align: right; margin-bottom: 8px;">S/60.00</h2>
+                    <h2>S/60.00</h2>
                     <a [routerLink]="['/catalogo']">> Ver más</a>
                 </div>
             </div>
             <div class="figu-1">
                 <img src="./assets/productos/posters.png" alt="" class="figu-figu" style="left: -70px;">
                 <div class="info-figu">
-                    <h2 style="text-align:left; font-size: 21px;">Posters y cuadros</h2>
+                    <h2>Posters y cuadros</h2>
                     <p>desde</p>
-                    <h2 style="text-align: center; margin-bottom: 8px;">S/10.00</h2>
+                    <h2>S/10.00</h2>
                     <a [routerLink]="['/catalogo']"
                         [queryParams]="{ tipo: 'franquicia', nombre: 'Yu-Gi-Oh!', linea: 'Posters y cuadros' }">> Ver
                         más</a>
                 </div>
             </div>
-
-
             <div class="figu-1">
-                <img src="./assets/productos/acrilicos.png" alt="" class="figu-figu" style="left: -60px;">
+                <img src="assets/productos/acrilicos.png" alt="" class="figu-figu" style="left: -60px;">
                 <div class="info-figu">
-                    <h2 style="text-align:left; font-size: 21px;margin-top: 10px;">Acrílicos</h2>
-                    <p style="margin-top: 11px;">desde</p>
-                    <h2 style="text-align: center; margin-bottom: 8px;">S/10.00</h2>
+                    <h2>Acrílicos</h2>
+                    <p>desde</p>
+                    <h2>S/10.00</h2>
                     <a [routerLink]="['/catalogo']"
                         [queryParams]="{ tipo: 'franquicia', nombre: 'Dragon Ball', linea: 'Acrilicos' }">> Ver más</a>
                 </div>
             </div>
-
-
             <div class="figu-1">
                 <img src="./assets/productos/pikachu.png" alt="" class="figu-figu" style="left: -60px;">
                 <div class="info-figu">
-                    <h2 style="text-align:left; font-size: 21px; margin-top: 10px;">Peluches</h2>
-                    <p style="margin-top: 19px;">desde</p>
-                    <h2 style="text-align: right; margin-bottom: 8px;">S/40.00</h2>
+                    <h2>Peluches</h2>
+                    <p>desde</p>
+                    <h2>S/40.00</h2>
                     <a [routerLink]="['/catalogo']"
                         [queryParams]="{ tipo: 'franquicia', nombre: 'Pokemon', linea: 'Peluches' }">> Ver más</a>
                 </div>
@@ -71,10 +72,9 @@
         <h1>Dale un vistazo!</h1>
         <div class="anunci">
             <div class="card" id="preventaa">
-                <a [routerLink]="['/revista']" [queryParams]="{ seccion: 'preventa' }"><img src="./assets/prepre.png"
-                        alt=""></a>
+                <a [routerLink]="['/revista']" fragment="preventa"><img src="./assets/prepre.png" alt=""></a>
                 <a [routerLink]="['/revista']">
-                    <p>Separalos Ya!</p>
+                    <p>Antes que se acabe!</p>
                 </a>
             </div>
             <div class="card" id="mikus">
@@ -84,9 +84,8 @@
                     <p>Tenemos variedades!</p>
                 </a>
             </div>
-            <div class="card" id="rllegados">
-                <a [routerLink]="['/revista']" [queryParams]="{ seccion: 'novedades' }"><img
-                        src="./assets/rllegados.png" alt=""></a>
+            <div class="card" id="novedades">
+                <a [routerLink]="['/revista']" fragment="novedades"><img src="./assets/rllegados.png" alt=""></a>
                 <a [routerLink]="['/revista']">
                     <p>Rápido! antes que se acaben</p>
                 </a>
@@ -102,20 +101,18 @@
         </div>
         <div class="slider-track">
             <div class="logos-slide" *ngFor="let franquicia of franquicias.concat(franquicias)">
-                <img [src]="'http://localhost:1337' + franquicia.logo?.url" [alt]="franquicia.nombre" />
-
+                <img [src]="franquicia.logo?.url" [alt]="franquicia.nombre" />
             </div>
         </div>
     </section>
     <!-- SLIDER DE MARCAS -->
     <section class="slider-logos">
         <div class="titulo-sliders">
-            <h1> MARCA</h1>
+            <h1> MARCAS</h1>
         </div>
         <div class="slider-track">
             <div class="logos-slide" *ngFor="let marca of marcas.concat(marcas)">
-                <img [src]="'http://localhost:1337' + marca.logo?.url" [alt]="marca.nombre" />
-
+                <img [src]="marca.logo?.url" [alt]="marca.nombre" />
             </div>
         </div>
     </section>
@@ -134,20 +131,19 @@
                 anime, Marvel, DC y más, seleccionados con pasión para conectar con tus personajes favoritos y ser
                 parte de una comunidad que comparte tu amor por la esta cultura.
                 <br> <br>
-                <button class="btn-qs" [routerLink]="['/quienes-somos']"> Conocenos más 🡆 </button>
+                <button class="btn-qs" [routerLink]="['/quienes-somos']"> Conocenos más </button>
             </p>
         </div>
     </div>
     <!-- ENTREGAS -->
     <div class="entregas">
         <div class="feria">
-            <h1 style="color: #222dfb; font-size: 60px;">ENTREGAS EN:</h1>
+            <h1 style="color: #222dfb;">ENTREGAS EN:</h1>
             <img src="./assets/feriaColeccionista.png" alt="">
             <h2>Todos los sábados 12:00pm a 6:00pm</h2>
         </div>
         <!-- inicio.component.html -->
         <div id="mapa"></div>
-
     </div>
 </div>
 <!-- ANUNCIO -->

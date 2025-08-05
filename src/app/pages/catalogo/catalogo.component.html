@@ -4,7 +4,6 @@
             [class.activo]="opcionSeleccionada === 'franquicia'">Franquicia</button>
         <button class="uwu" (click)="opcionSeleccionada = 'marca'"
             [class.activo]="opcionSeleccionada === 'marca'">Marca</button>
-
     </div>
     <div class="slider-contenedor">
         <button class="flecha" (click)="moverSlider(-1)">&#10094;</button>
@@ -16,37 +15,85 @@
                     [alt]="opcionSeleccionada === 'franquicia' ? item.nombre : item.nombre" />
             </div>
         </div>
-
         <button class="flecha" (click)="moverSlider(1)">&#10095;</button>
     </div>
-
+    <!-- Botón visible solo en móvil -->
+    <button class="btn-toggle-filtro" (click)="toggleFiltro()" *ngIf="esMobile">
+        {{ mostrarFiltro ? 'Cerrar filtro' : 'Abrir filtro' }}
+    </button>
+    <!-- Backdrop oscuro -->
+    <div class="filtro-backdrop" *ngIf="mostrarFiltro && esMobile" (click)="mostrarFiltro = false"></div>
+    <div class="paginacion" *ngIf="totalPaginas > 1">
+        <button (click)="cambiarPagina(-1)" [disabled]="paginaActual === 1">&#10094;</button>
+        <ng-container *ngFor="let pagina of [].constructor(totalPaginas); let i = index">
+            <button (click)="irAPagina(i + 1)" [class.activa]="paginaActual === i + 1">{{ i + 1 }}</button>
+        </ng-container>
+        <button (click)="cambiarPagina(1)" [disabled]="paginaActual === totalPaginas">&#10095;</button>
+    </div>
     <div class="contenedor-productos-filtro">
-        <app-prb-productos [productos]="productosFiltrados"></app-prb-productos>
-
-        <!-- Filtros Laterales -->
-
-        <div class="filtro-lateral">
+        <app-prb-productos [productos]="productosPaginados"></app-prb-productos>
+        <!-- Filtro lateral deslizante en móvil -->
+        <div class="filtro-lateral-slide" *ngIf="esMobile"
+            [ngClass]="{ 'visible': mostrarFiltro, 'oculto': !mostrarFiltro }">
+            <button class="btn-cerrar-slide" (click)="mostrarFiltro = false">✖</button>
             <button (click)="limpiarTodosLosFiltros()" class="btn-limpiar">
                 Limpiar filtros
             </button>
-
-            <h3> Filtrar por: </h3>
+            <h3>Filtrar por:</h3>
             <div *ngFor="let filtro of filtrosLaterales" class="filtro-item">
-                <div class="grupo-logo"
-                    [ngClass]="{'seleccionado': (opcionSeleccionada === 'franquicia' && marcaSeleccionada === filtro.nombre) ||(opcionSeleccionada === 'marca' && franquiciaSeleccionada === filtro.nombre)}"
-                    (click)="opcionSeleccionada === 'franquicia' ? filtrarMarcaDesdeFranquicia(filtro.nombre) : filtrarFranquiciaDesdeMarca(filtro.nombre)">
+                <div class="grupo-logo" [ngClass]="{
+          seleccionado:
+            (opcionSeleccionada === 'franquicia' && marcaSeleccionada === filtro.nombre) ||
+            (opcionSeleccionada === 'marca' && franquiciaSeleccionada === filtro.nombre)
+        }" (click)="opcionSeleccionada === 'franquicia'
+            ? filtrarMarcaDesdeFranquicia(filtro.nombre)
+            : filtrarFranquiciaDesdeMarca(filtro.nombre)">
                     <img [src]="filtro.logoUrl" [alt]="filtro.nombre" class="loguito" />
                 </div>
                 <h4>{{ filtro.nombre }}</h4>
                 <ul>
                     <li *ngFor="let linea of filtro.lineas" (click)="filtrarPorLinea(linea.nombre)">
-                        <span [ngClass]="{ 'seleccionado': lineaSeleccionada === linea.nombre }">
+                        <span [ngClass]="{ seleccionado: lineaSeleccionada === linea.nombre }">
                             {{ linea.nombre }} ({{ linea.cantidad }})
                         </span>
                     </li>
                 </ul>
             </div>
-
+        </div>
+        <!-- Filtro visible fijo en escritorio -->
+        <div class="filtro-lateral" *ngIf="!esMobile">
+            <button (click)="limpiarTodosLosFiltros()" class="btn-limpiar">Limpiar filtros</button>
+            <h3>Filtrar por:</h3>
+            <div *ngFor="let filtro of filtrosLaterales" class="filtro-item">
+                <div class="grupo-logo" [ngClass]="{
+          seleccionado:
+            (opcionSeleccionada === 'franquicia' && marcaSeleccionada === filtro.nombre) ||
+            (opcionSeleccionada === 'marca' && franquiciaSeleccionada === filtro.nombre)
+        }" (click)="opcionSeleccionada === 'franquicia'
+            ? filtrarMarcaDesdeFranquicia(filtro.nombre)
+            : filtrarFranquiciaDesdeMarca(filtro.nombre)">
+                    <img [src]="filtro.logoUrl" [alt]="filtro.nombre" class="loguito" />
+                </div>
+                <h4>{{ filtro.nombre }}</h4>
+                <ul>
+                    <li *ngFor="let linea of filtro.lineas" (click)="filtrarPorLinea(linea.nombre)">
+                        <span [ngClass]="{ seleccionado: lineaSeleccionada === linea.nombre }">
+                            {{ linea.nombre }} ({{ linea.cantidad }})
+                        </span>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
+    <div class="paginacion" *ngIf="totalPaginas > 1">
+        <button (click)="cambiarPagina(-1)" [disabled]="paginaActual === 1">Anterior</button>
+
+        <ng-container *ngFor="let pagina of [].constructor(totalPaginas); let i = index">
+            <button (click)="irAPagina(i + 1)" [class.activa]="paginaActual === i + 1">{{ i + 1 }}</button>
+        </ng-container>
+
+        <button (click)="cambiarPagina(1)" [disabled]="paginaActual === totalPaginas">Siguiente</button>
+    </div>
+    <br>
+    <br>
 </section>

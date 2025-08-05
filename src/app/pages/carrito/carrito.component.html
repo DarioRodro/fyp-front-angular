@@ -1,0 +1,39 @@
+<div class="p-4">
+    <h2 class="text-2x1 font-bold mb-4"> Carrito </h2>
+
+    <div *ngIf="productos.length === 0">
+        <p>Tu carrito está vacío.</p>
+    </div>
+    <div *ngIf="productos.length > 0" class="space-y-4">
+        <div *ngFor="let producto of productos" class="flex items-center gap-4 border-b pb-2">
+            <img [src]="producto.Imagen[0].url" alt="{{ producto.Nombre }}"
+                class="w-20 h-20 object-contain border rounded" />
+            <div class="flex-1">
+                <h3 class="font-semibold">{{ producto.Nombre}}</h3>
+                <p>Cantida: {{ producto.cantidad }}</p>
+                <p>Precio unitario: {{ producto.Precio | currency:'PEN':'symbol' }}</p>
+                <p class="font-bold">
+                    Subtotal: {{ producto.Precio * producto.cantidad | currency:'PEN':'symbol' }}
+                </p>
+            </div>
+            <button class="texy-red-500" (click)="eliminarProducto(producto.id)">
+                Eliminar
+            </button>
+        </div>
+        <div class="text-right mt-6">
+            <p class="text-xl font-bold">
+                Total: {{ total | currency:'PEN':'symbol' }}
+            </p>
+            <div class="mt-4 flex justify-end gap-4">
+                <button class="bg-gray-300 px-4 py-2 rounded hover:bg-red-500 hover:text-white transition"
+                    (click)="confirmarVaciarCarrito()">
+                    Vaciar Carrito
+                </button>
+
+                <a routerLink="/confirmar-pago" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+                    Pagar
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

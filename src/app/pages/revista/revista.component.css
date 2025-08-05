@@ -1,34 +1,53 @@
 .cuatro-anuncios{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    grid-column-gap: 10px;
-    grid-row-gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
 }
 
 .cuatro-anuncios img{
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
+}
+
+.img-desktop {
+  display: block;
+}
+
+.img-mobile {
+  display: none;
 }
 
 h1{
-    text-align: center;
-    font-family: K2D, sans-serif;
-    font-size: 4.5rem;
-    color: #222DFB;
-    background-color: #e2e2e2;
-    margin-block-end: 0;
-    margin-block-start: 0.5em;
-    padding: 15px;
-
+  text-align: center;
+  font-family: K2D, sans-serif;
+  font-size: 4.5rem;
+  color: #222DFB;
+  background-color: #eeeeee;
+  margin-block-end: 0;
+  margin-block-start: 0.5em;
+  padding: 15px;
 }
 
 .anuncio2 {
-    display: flex;
-    gap: 1rem;
-    width: 100%;
-    height: 100%;
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  height: 100%;
 }
+
+.desktop{
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  height: 200px;
+}
+
+.mobile {
+  display: none;
+}
+
 .pre-venta, .novedades, .colecciones{
   margin: 0 250px;
   padding: 0 64px;
@@ -43,12 +62,11 @@ h1{
   overflow: hidden;
 }
 
-.carousel {
+.slider-scroll {
   display: flex;
   gap: 4.5rem;
   overflow-x: auto;
   scroll-behavior: smooth;
-  padding: 1rem 2rem;
   scroll-snap-type: x mandatory;
 }
 
@@ -61,7 +79,7 @@ h1{
   cursor: pointer;
   z-index: 2;
   padding: 0 0.5rem;
-  color: #333;
+  color: #747474a6;
 }
 
 .carousel-button.left {
@@ -75,16 +93,16 @@ h1{
 }
 
 .novedades{
-    padding: 2rem ;
+  padding: 2rem ;
 }
 
 .novedades .producto{
-    display: flex;
-    justify-content: space-around;
-    flex-direction: column;
-    gap: 2rem;
-    width: 100%;
-    height: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+  height: 100%;
 }
 
 .vertodo {
@@ -92,7 +110,6 @@ h1{
   width: 100%;
   height: auto;
   justify-content: right;
-
 }
 
 .ver {
@@ -110,24 +127,25 @@ h1{
 
 /*MEJORES COLECCIONES*/
 .carousel-mj{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-    height: 350px;
-    max-width: 1200px;
-    margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 350px;
+  max-width: 1200px;
+  margin: auto;
+  touch-action: pan-y;
 }
 
 .colecc-img{
-    display: flex;
-    width: 100%;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-    position: relative;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
 .carousel-item {
@@ -140,8 +158,8 @@ h1{
 }
 
 .carousel-item img{
-    border-radius: 10px;
-    width: 350px;
+  border-radius: 10px;
+  width: 350px;
 }
 
 .carousel-item.active {
@@ -173,5 +191,122 @@ h1{
   cursor: pointer;
   z-index: 5;
   padding: 0.1rem;
+  color: #747474a6;
+}
+#preventa,
+#novedades {
+  scroll-margin-top: 80px; /* ajusta a la altura de tu navbar */
 }
 
+
+@media (max-width:1024px) {
+  .pre-venta, .novedades, .colecciones{
+  margin: 0;
+  padding: 0;
+  }
+  h1{
+    text-align: center;
+    font-family: K2D, sans-serif;
+    font-size: 6rem;
+  }
+  .carousel-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: none;
+  padding: 2rem 0 0rem 0;
+  overflow: hidden;
+  }
+  .anuncio2 {
+    display: none;   
+  }
+  .vertodo {
+  justify-content: center;
+  margin-top:50px ;
+  }
+  .ver {
+  font-size: 65px;
+  }
+  .cuatro-anuncios {
+    display: flex;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    gap: 10px;
+  }
+
+  .cuatro-anuncios a {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    width: 100vw;
+  }
+
+  .cuatro-anuncios::-webkit-scrollbar {
+    display: none;
+  }
+
+  .cuatro-anuncios img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+  .img-desktop {
+    display: none;
+  }
+  .img-mobile {
+    display: flex;
+    gap: 1rem;
+    height: 600px;
+    width: 100%;
+  }
+
+  .desktop{
+    display: none;
+  }
+  .mobile {
+  display: flex;
+  width: 100%;
+  }
+}
+
+@media (max-width:764px) {
+h1{
+    text-align: center;
+    font-family: K2D, sans-serif;
+    font-size: 4rem;
+    margin-block-start: 0;
+
+  }
+  .novedades{
+    padding: 2rem ;
+  }
+
+  .novedades{
+    display: flex;
+    justify-content: none;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    height: 100%;
+  }
+  .prod-novedades{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    height: 100%;
+  }
+  .vertodo {
+  margin-top:30px ;
+  }
+  .ver {
+  font-size: 45px;
+  }
+  .anuncio2 {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+    height: 100%;
+  }
+}

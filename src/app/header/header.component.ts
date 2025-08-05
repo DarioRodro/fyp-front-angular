@@ -8,6 +8,8 @@ import { ElementRef, HostListener, ViewChild } from '@angular/core';
 import { FranquiciaService } from '../services/franquicia.service';
 import { MarcaService } from '../services/marca.service';
 import { Franquicia, Marca } from '../models/producto.model';
+import { environment } from '../../environments/environment';
+import { CarritoService } from '../services/carrito.service';
 
 @Component({
   selector: 'app-header',
@@ -22,11 +24,21 @@ export class HeaderComponent implements OnInit {
   resultados: any[] = [];
   franquicias: Franquicia[] = [];
   marcas: Marca[] = [];
+  menuAbierto = false;
+
+  toggleMenu() {
+    this.menuAbierto = !this.menuAbierto;
+  }
+
+  cerrarMenuCompleto() {
+  this.menuAbierto = false;
+  this.activeMenu = null;
+  }
 
   @ViewChild('searchBox') searchBox!: ElementRef;
   @ViewChild('resultadosBox') resultadosBox!: ElementRef;
 
-  constructor(private productoService: ProductoService,private franquiciaService: FranquiciaService,
+  constructor( public carritoService: CarritoService,private productoService: ProductoService,private franquiciaService: FranquiciaService,
     private marcaService: MarcaService, private router: Router) {}
 
     ngOnInit(): void {

@@ -1,26 +1,25 @@
 /*.productos-catalogo{
 }*/
-
 .selector-botones {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 1fr;
-    justify-content: space-between;
-    height: 60px;
-    font-size: 2rem;
-    margin: 20px 250px; 
-    padding: 0 64px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+  justify-content: space-between;
+  height: 60px;
+  font-size: 2rem;
+  margin: 20px 250px; 
+  padding: 0 64px;
 }
 
 .uwu{
-    color: #000000;
-    font-size: 1.5rem;
-    font-family: 'K2D', sans-serif;
-    font-weight: 500;
-    cursor: pointer;
-    transition: 0.3 ease;
-    border: none;
-    border-radius: 10px;
+  color: #000000;
+  font-size: 1.5rem;
+  font-family: 'K2D', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3 ease;
+  border: none;
+  border-radius: 10px;
 }
 
 .uwu.activo {
@@ -35,7 +34,7 @@
   cursor: pointer;
   z-index: 2;
   padding: 0 0.5rem;
-  color: #333;
+  color: #747474a6;
 }
 
 .slider-contenedor {
@@ -57,7 +56,6 @@
   max-width: 100%;
   padding: 1rem 2rem;
   scroll-snap-type: x mandatory;
-
 }
 
 .slide {
@@ -74,8 +72,6 @@
 .slider {
   overflow-x: auto;
 }
-
-
 
 .productos-lista {
   display: flex;
@@ -122,7 +118,6 @@
   text-align: center;
 }
 
-
 /*BARRA LATERAL*/
 .filtro-lateral {
   width: 250px;
@@ -131,7 +126,6 @@
   border-radius: 1rem;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
 }
-
 
 .filtro-lateral ul {
   list-style: none;
@@ -162,11 +156,13 @@
   cursor: pointer;
   transition: transform 0.2s ease;
 }
+
 .filtro-lateral .grupo-logo:hover {
   transform: scale(1.05);
 }
+
 .filtro-lateral .grupo-logo img.loguito {
-  max-height: 40px;
+  max-height: 50px;
   object-fit: contain;
 }
 
@@ -176,13 +172,15 @@ h4 {
   color: #333;
   font-weight: 600;
   font-family: 'K2D', sans-serif;
-      margin-block-start: 0;
+  margin-block-start: 0;
 }
+
 li.activo {
   font-weight: bold;
   color: #e60073; /* O el color que prefieras */
   cursor: pointer;
 }
+
 .seleccionado {
   font-weight: bold;
 }
@@ -200,8 +198,7 @@ li.activo {
 }
 
 .btn-limpiar:hover {
-    background-color: #222dfb
-
+  background-color: #222dfb
 }
 
 .grupo-logo.seleccionado {
@@ -209,4 +206,178 @@ li.activo {
   border-radius: 8px;
   padding: 4px;
   background-color: rgba(143, 45, 255, 0.1);
+}
+
+.btn-toggle-filtro {
+  display: none;
+  margin: 1rem auto;
+  padding: 10px 20px;
+  background-color: #000000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  font-family: 'K2D', sans-serif;
+  transition: background-color 0.3s ease;
+}
+
+.btn-toggle-filtro:hover {
+  background-color: #0000ff;
+}
+
+/* Panel deslizable */
+.filtro-lateral-slide {
+  position: fixed;
+  top: 0;
+  right: 0;
+  max-width: 320px;
+  height: 100vh;
+  background-color: #f9f9f9;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.filtro-lateral-slide.visible {
+  transform: translateX(0);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.filtro-lateral-slide.oculto {
+  transform: translateX(100%);
+}
+
+.btn-cerrar-slide {
+  align-self: flex-end;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #000;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+/* Backdrop */
+  .filtro-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+}
+
+.paginacion {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
+.paginacion button {
+  padding: 8px 15px;
+  border: none;
+  background-color: #eeeeee;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 15px;
+}
+
+.paginacion button.activa {
+  background-color: #000; /* o el color que combine con tu tienda */
+  color: #fff;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+.paginacion button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 1024px){
+  .selector-botones {
+    margin: 0px; 
+    padding: 0 ;
+    height: 100px;
+  }
+
+  .uwu{
+    font-size: 3.5rem;
+  }
+  .slider-contenedor {
+    margin: 0 ;
+    padding: 0;
+  }
+
+  .slide img {
+    width: 150px;
+    height: 100px;
+  }
+
+  .btn-limpiar {
+    display: flex;
+    justify-content: right;
+    font-size: 1.5rem;
+  }
+
+  /*BARRA LATERAL*/
+  .filtro-lateral {
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  .btn-toggle-filtro {
+    display: block;
+  }
+
+  .contenedor-productos-filtro {
+    flex-direction: column;
+    margin: 1rem;
+    padding: 0;
+  }
+
+  .filtro-lateral {
+    display: none; /* solo usamos el slide en móviles */
+  }
+
+  .filtro-item h4 {
+    display: none;
+  }
+  
+  .filtro-item li {
+    font-size: 1.5rem;
+    padding: 10px 0;
+    cursor: pointer;
+    color: #000;
+  }
+  
+  .grupo-logo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .loguito {
+    max-height: 100px;
+  }
+
+  .paginacion {
+    gap: 20px;
+  }
+  
+  .paginacion button {
+    padding: 8px 18px;
+    font-size: 30px;
+  }
 }

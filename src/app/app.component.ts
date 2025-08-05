@@ -24,8 +24,12 @@ export class AppComponent implements OnInit {
       this.router.events
         .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
         .subscribe(() => {
-          window.scrollTo({ top: 0, behavior: 'auto' });
-        });
+  const hasFragment = this.router.url.includes('#');
+  if (!hasFragment) {
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  }
+});
+
     }
   }
 }

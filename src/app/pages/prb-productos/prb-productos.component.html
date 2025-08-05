@@ -1,25 +1,23 @@
 <div [ngClass]="modo === 'horizontal' ? 'productos-lista-horizontal' :  'productos-grid' ">
-
     <div class="producto" *ngFor="let producto of productos">
         <a *ngIf="producto.slug" [routerLink]="['/figura', producto.slug]" class="producto-link">
             <div *ngIf="producto.categories?.length" class="etiqueta-categoria"
                 [ngClass]="producto.categories[0].estado?.toLowerCase()">
                 {{ producto.categories[0].estado | titlecase }}
             </div>
-
-
             <div *ngIf="producto.Imagen?.length">
-                <img [src]="'http://localhost:1337' + producto.Imagen[0].url" alt="{{ producto.Nombre }}">
+                <img [src]="producto.Imagen?.[0].url" alt="{{ producto.Nombre }}">
             </div>
-
             <div class="info">
                 <p class="marca"> {{ producto.marca?.nombre }} </p>
                 <p class="name"><strong> {{ producto.Nombre }} </strong></p>
                 <p class="price"> {{ producto.Precio | currency:'PEN':'symbol':'1.2-2':'es-PE' }} </p>
+                <button class="btn-agregar" (click)="carritoService.agregarProducto(producto)">
+                    Agregar al carrito
+                </button>
             </div>
         </a>
     </div>
-
     <ng-template #cargando>
         <p>Cargando productos...</p>
     </ng-template>

@@ -19,7 +19,7 @@ export class VerFiguraComponent implements OnInit {
 
   imagenSeleccionada: string | null = null;
   productosRelacionados: Producto[] = [];
-
+  
 seleccionarImagen(url: string) {
   this.imagenSeleccionada = url;
 }

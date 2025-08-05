@@ -1,0 +1,61 @@
+.terminos-container {
+  max-width: 900px;
+  margin: auto;
+  padding: 2rem;
+  font-family: 'Segoe UI', sans-serif;
+  color: #333;
+  background-color: #fff;
+  line-height: 1.6;
+}
+
+.terminos-container h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.terminos-container h2 {
+  margin-top: 1.5rem;
+  color: #444;
+}
+
+.terminos-container ul {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.terminos-container li {
+  margin-bottom: 0.5rem;
+}
+
+.terminos-container a {
+  color: #0077cc;
+  text-decoration: none;
+}
+
+.terminos-container a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 1024px) {
+  .terminos-container h1 {
+    font-size: 3.5rem;
+  }
+  .terminos-container h2{
+    font-size: 2.5rem;
+  }
+  .terminos-container p, li{
+    font-size: 2rem;
+  }
+}
+@media (max-width: 768px) {
+  .terminos-container h1 {
+    font-size: 2.5rem;
+  }
+  .terminos-container h2{
+    font-size: 1.5rem;
+  }
+  .terminos-container p, li{
+    font-size: 1rem;
+  }
+}

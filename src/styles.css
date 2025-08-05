@@ -1,38 +1,47 @@
-/* You can add global styles to this file, and also import other style files */
-:root {
-    margin: 0px;
-    padding: 0px;
-    box-sizing: border-box;
-    font-family: 'Montserrat', sans-serif;
+/* GLOBAL STYLES */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
+
+:root {
+  font-family: 'Montserrat', sans-serif;
+}
+
 html {
   scroll-behavior: smooth;
-}   
-body{
-    background-color: rgb(253, 253, 253);
-    color: rgb(0, 0, 0);
-    margin: 0px;
-    padding: 0px;
-}/* You can add global styles to this file, and also import other style files */
+}
 
-/* Aplica al body o a cualquier contenedor con overflow */
+body {
+  background-color: rgb(253, 253, 253);
+  color: rgb(0, 0, 0);
+  overflow-x: hidden;
+  width: 100%;
+  min-height: 100vh;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* SCROLLBAR PERSONALIZADO */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1; /* fondo de la pista */
+  background: #f1f1f1;
   border-radius: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #000000; /* color del scroll */
+  background: #000000;
   border-radius: 8px;
   border: 2px solid transparent;
   background-clip: content-box;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #000000; /* al pasar el mouse */
+  background: #000000;
 }

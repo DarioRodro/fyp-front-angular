@@ -1,32 +1,35 @@
-<div class="cuatro-anuncios">
-    <a [routerLink]="['/catalogo']" [queryParams]="{ tipo: 'marca', nombre: 'BANPRESTO', linea: 'Q-posket' }"> <img
-            src="assets/qposketanunci.png" alt=""> </a>
+<div #sliderAnuncios class="cuatro-anuncios">
+    <a [routerLink]="['/catalogo']" [queryParams]="{ tipo: 'marca', nombre: 'BANPRESTO', linea: 'Q-posket' }">
+        <img class="img-desktop" src="assets/qposketanunci.png" alt="">
+        <img class="img-mobile" src="assets/qposketanunci-mobile.png" alt=""> </a>
 
-    <a [routerLink]="['/catalogo']" [queryParams]="{ tipo: 'marca', nombre: 'BANPRESTO', linea: 'Match Makers' }"> <img
-            src="assets/match-maker-anunc.png" alt=""></a>
-
-    <a [routerLink]="['/catalogo']"
-        [queryParams]="{ tipo: 'marca', nombre: 'BANPRESTO', linea: 'Glitter & Glamours' }"><img
-            src="assets/gganunci.png" alt=""></a>
-    <a [routerLink]="['/catalogo']" [queryParams]="{ tipo: 'franquicia', nombre: 'Pokemon', linea: 'Peluches' }"><img
-            src="assets/peluchepokemo.png" alt=""></a>
+    <a [routerLink]="['/catalogo']" [queryParams]="{ tipo: 'marca', nombre: 'BANPRESTO', linea: 'Match Makers' }">
+        <img class="img-desktop" src="assets/match-maker-anunc.png" alt="">
+        <img class="img-mobile" src="assets/match-maker-anunc-mobile.png" alt="">
+    </a>
+    <a [routerLink]="['/catalogo']" [queryParams]="{ tipo: 'marca', nombre: 'BANPRESTO', linea: 'Glitter & Glamours' }">
+        <img class="img-desktop" src="assets/gganunci.png" alt="">
+        <img class="img-mobile" src="assets/gganunci-mobile.png" alt="">
+    </a>
+    <a [routerLink]="['/catalogo']" [queryParams]="{ tipo: 'franquicia', nombre: 'Pokemon', linea: 'Peluches' }">
+        <img class="img-desktop" src="assets/peluchepokemo.png" alt="">
+        <img class="img-mobile" src="assets/peluchepokemo-mobile.png" alt="">
+    </a>
 </div>
-<div class="pre-venta" *ngIf="seccionActiva === 'preventa' || seccionActiva === 'todas'">
+<div id="preventa" class="pre-venta" *ngIf="seccionActiva === 'preventa' || seccionActiva === 'todas'">
     <h1> PRE-VENTA </h1>
     <div *ngIf="productosPreventa.length > 0; else sinPreventa" class="carousel-container">
         <button class="carousel-button left" (click)="moverSlider(-1)">&#10094;</button>
         <div #slider class="slider-scroll">
-            <app-prb-productos [productos]="productosPreventa"></app-prb-productos>
+            <app-prb-productos [productos]="productosPreventa" [modo]="'horizontal'"></app-prb-productos>
         </div>
-
         <button class="carousel-button right" (click)="moverSlider(1)">&#10095;</button>
     </div>
-
     <ng-template #sinPreventa>
         <p>No hay productos en preventa.</p>
     </ng-template>
 </div>
-<div class="novedades" *ngIf="seccionActiva === 'novedades' || seccionActiva === 'todas'">
+<div id="novedades" class="novedades" *ngIf="seccionActiva === 'novedades' || seccionActiva === 'todas'">
     <h1> NOVEDADES </h1>
     <div class="prod-novedades">
         <app-prb-productos [productos]="productosNovedades" modo="grilla"></app-prb-productos>
@@ -37,7 +40,7 @@
 </div>
 <div class=" colecciones" id="mejores-colecciones">
     <h1> MEJORES COLECCIONES </h1>
-    <div class="carousel-mj">
+    <div class="carousel-mj" #sliderAnuncios>
         <button (click)="prevSlider()">&#10094;</button>
         <div class="colecc-img">
             <div class="carousel-item" *ngFor="let imagen of imagenes; let i = index"
@@ -50,5 +53,6 @@
     </div>
 </div>
 <div class="anuncio2">
-    <img src="./assets/anuncio-2.png" alt="">
+    <img class="desktop" src="./assets/anuncio-2.png" alt="" />
+    <img class="mobile" src="./assets/anuncio-2-mobile.png" alt="">
 </div>

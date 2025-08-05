@@ -3,21 +3,16 @@
     <div *ngIf="!loading && producto; else noEncontrado">
         <div class="todo-figura">
             <!-- Sección de imagen + información -->
-
             <!-- Galería de imágenes -->
             <div class="galeria-horizontal">
+                <div class="imagen-principal">
+                    <img [src]="imagenSeleccionada" alt="Imagen principal del producto" />
+                </div>
                 <div class="miniaturas-vertical">
-                    <img *ngFor="let img of producto?.Imagen" [src]="'http://localhost:1337' + img.url" alt="Miniatura"
+                    <img *ngFor="let img of producto?.Imagen" [src]="img.url" alt="Miniatura"
                         (click)="seleccionarImagen(img.url)" [class.activa]="imagenSeleccionada === img.url" />
                 </div>
-
-                <div class="imagen-principal">
-                    <img [src]="'http://localhost:1337' + imagenSeleccionada" alt="Imagen principal del producto" />
-                </div>
             </div>
-
-
-
             <!-- Información del producto -->
             <div class="descrip">
                 <h2 class="titulo">{{ producto.Nombre }}</h2>
@@ -44,11 +39,10 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="botonsito">
+                <!--<div class="botonsito">
                     <button>Añadir al Carrito</button>
-                </div>
+                </div>-->
             </div>
-
             <!-- Sección de detalles y reseña -->
             <!-- Tabla de detalles -->
             <div class="detalles">
@@ -59,10 +53,6 @@
                             <tr>
                                 <th class="nombre">CATEGORÍA</th>
                                 <th class="anwser"> {{ producto.categories?.[0]?.estado }}</th>
-                            </tr>
-                            <tr>
-                                <th class="nombre">CÓDIGO</th>
-                                <th class="anwser"> uwu </th>
                             </tr>
                             <tr>
                                 <th class="nombre">PROCEDENCIA</th>
@@ -79,7 +69,6 @@
                                         {{ tag.nombre }}<span *ngIf="!last">, </span>
                                     </span>
                                 </th>
-
                             </tr>
                         </tbody>
                     </table>
@@ -91,7 +80,6 @@
                 <h1> " {{ producto.Resena }} "</h1>
             </div>
         </div>
-
     </div>
     <ng-template #noEncontrado>
         <div style="margin: 2rem;">
@@ -103,6 +91,4 @@
         <h2>Podría interesarte</h2>
         <app-prb-productos [productos]="productosRelacionados"></app-prb-productos>
     </section>
-
-
 </div>

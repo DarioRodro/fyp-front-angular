@@ -1,7 +1,7 @@
 .ver-figura {
-    margin: 30px 250px;
-    padding: 0 64px;
-    font-family: 'K2D', sans-serif;
+  margin: 30px auto;
+  padding: 0 200px;
+  font-family: 'K2D', sans-serif;
 }
 
 .todo-figura{
@@ -9,12 +9,14 @@
   grid-template-columns: 1fr 1fr;
   gap: 20px;
 }
+
 /* IMAGENES GALERIA*/
 .galeria-horizontal {
   display: flex;
   gap: 1rem;
   align-items: flex-start;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .miniaturas-vertical {
@@ -39,33 +41,37 @@
 
 .imagen-principal img {
   width: 100%;
-  max-width: 450px;
+  max-width: 500px;
   height: auto;
   object-fit: contain;
   border-radius: 10px;
 }
 
 /*DESCRIPICION*/
-.descrip, .detalles, .reseñas {
-    padding: 0 30px;
+.descrip, .reseñas {
+  padding: 0 30px;
 }
+
 .titulo {
-    font-size: 30px
+  font-size: 30px
 }
+
 .precio {
-    font-size: 25px;
+  font-size: 25px;
+  margin-block-start: 1rem;
 }
+
 .stock {
-    font-weight: lighter; 
-    margin-block-start: 0;
+  font-weight: lighter; 
+  margin-block-start: 1rem;
 }
 
 .name {
-    text-align: left;
+  text-align: left;
 }
 .respuesta {
-    text-align: right;
-    font-weight: normal;
+  text-align: right;
+  font-weight: normal;
 }
 
 .precio {
@@ -73,77 +79,172 @@
   color: #e91e63;
   font-weight: bold;
 }
+
 .botonsito {
-    display: flex;
-    justify-content: right;
+  display: flex;
+  justify-content: right;
 }
+
 .botonsito button {
-    color: white;
-    background: black;
-    text-decoration: none;
-    font-size: 20px;
-    font-family: 'Monserrat', sans-serif;
-    font-weight: lighter;
-    padding: 15px 25px;
-    border-radius: 50px;
-    cursor: pointer;
+  color: white;
+  background: black;
+  text-decoration: none;
+  font-size: 20px;
+  font-family: 'Monserrat', sans-serif;
+  font-weight: lighter;
+  padding: 15px 25px;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+.des-des {
+  margin-block-start: 1rem;
+  color: rgb(80, 80, 80);
+  font-size: 20px;
 }
 
 /*DETALLES*/
-.detalles h2{
-    padding-left: 10px;
-    margin-block-end: 0.5em;
-    margin-block-start: 0;
-
+.detalles {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 100px;
 }
 
-.detalles-especificos table{
-    border: 1px solid #7839f6;
+.detalles h2{
+  padding-left: 10px;
+  margin-block-end: 0.5em;
+  margin-block-start: 0;
+  font-size: 30px;
 }
 
 .nombre {
-    font-style: italic;
-    color: white;
-    background-color: #7839f6;
-    text-align: left;
-    font-size: 25px;
-    width: 50%;
-    padding:  7px 10px;
+  font-style: italic;
+  color: white;
+  background-color: #7839f6;
+  border-radius: 5px;
+  text-align: left;
+  font-size: 25px;
+  width: 50%;
+  padding:  7px 10px;
 }
 
 .anwser {
-    font-family: 'Monserrat',sans-serif;
-    font-weight: 500;
-    text-align: right;
-    padding:  7px 10px;
+  font-family: 'K2D',sans-serif;
+  font-weight: 500;
+  text-align: right;
+  padding:  7px 10px;
+  color: rgb(80, 80, 80);
 }
 
 /*RESEÑA*/
 .reseña h2{
-    padding-left: 10px;
-    margin-block-start: 0;
-
+  padding-left: 10px;
+  margin-block-start: 0;
+  font-size: 30px;
 }
 
 .reseña h1{
-    font-weight: normal;
-    font-style: italic;
-    text-align: center;
-    font-size: 20px;
+  font-weight: normal;
+  font-style: italic;
+  text-align: center;
+  font-size: 20px;
 }
 
 /*REALCIONADS*/
 .relacionados {
-    margin: 50px 0;
+  margin: 50px 0;
 }
+
 .relacionados h2 {
-    font-size: 30px;
-    margin-bottom: 20px;
-    padding-left: 10px;
+  font-size: 30px;
+  margin-bottom: 20px;
+  padding-left: 100px;
 }
 
 /* 💡 Responsive para móviles */
+/* 📱 Tablet (hasta 1024px) */
+@media (max-width: 1024px) {
+  .ver-figura {
+    padding: 0 32px;
+  }
+
+  .todo-figura {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .imagen-principal img {
+    max-width: 100%;
+  }
+
+  .miniaturas-vertical {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .miniaturas-vertical img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .detalles {
+    padding: 0;
+  }
+
+  .descrip,
+  .reseña {
+    padding: 0 ;
+  }
+  h2 {
+    font-size: 40px;
+  }
+
+  .titulo {
+    font-size: 50px;
+  }
+
+  .precio {
+    font-size: 48px;
+  }
+  .descrip h3 {
+    font-size: 40px;
+  }
+  .des-des{
+    padding: 30px;
+    display: grid;
+    width: 100%;
+  }
+  .name, .respuesta {   
+    font-size: 35px;
+  }
+
+  .nombre {
+    font-size: 40px;
+  }
+
+  .anwser {
+    font-size: 36px;
+  }
+  .reseña h1 {
+    font-size: 30px;
+    padding: 0 8px;
+  }
+  .relacionados h2 {
+    font-size: 50px;
+    padding-left: 30px;
+  }
+}
+
+
+/* 📱 Celulares (hasta 768px) */
 @media (max-width: 768px) {
+  .ver-figura {
+    padding: 0 16px;
+  }
+
   .galeria-horizontal {
     flex-direction: column;
     align-items: center;
@@ -152,15 +253,56 @@
   .miniaturas-vertical {
     flex-direction: row;
     justify-content: center;
-    flex-wrap: wrap;
+    gap: 8px;
   }
 
   .miniaturas-vertical img {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
   }
 
   .imagen-principal img {
     max-width: 100%;
+  }
+
+  .titulo {
+    font-size: 22px;
+  }
+
+
+  .precio {
+    font-size: 20px;
+  }
+  .descrip h3 {
+    font-size: 20px;
+  }
+
+  .reseña h1 {
+    font-size: 20px;
+    padding: 0 8px;
+  }
+    .name, .respuesta {   
+    font-size: 30px;
+  }
+  .nombre {
+    font-size: 18px;
+  }
+
+  .anwser {
+    font-size: 14px;
+  }
+
+  .botonsito {
+    justify-content: center;
+  }
+
+  .botonsito button {
+    font-size: 16px;
+    padding: 10px 20px;
+  }
+
+  .relacionados h2 {
+    font-size: 34px;
+    padding-left: 5px;
   }
 }

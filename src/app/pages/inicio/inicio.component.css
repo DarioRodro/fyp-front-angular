@@ -1,15 +1,16 @@
 .slider-container {
-    position: relative;
-    width: 100%;
-    max-width: 100%;
-    margin: auto;
-    overflow: hidden;
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  margin: auto;
+  overflow: hidden;
 }
 
 .slider {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
+  display: flex;
+  transition: transform 0.5s ease-in-out;
 }
+
 .slider img {
   width: 100%;
   height: auto;
@@ -18,30 +19,31 @@
 }
 
 .slide {
-    min-width: 100%;
-
+  min-width: 100%;
 }
+
 .button {
-    position: absolute;
-    top: 50%;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    transform: translateY(-50%);
-    cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+  cursor: pointer;
 }
 
 button {
-    background-color: transparent;
-    color:white;
-    border: none;
-    padding: 10px;
-    font-size: 18px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  background-color: transparent;
+  color:white;
+  border: none;
+  padding: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
+
 button:hover {
-    background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
 .nav {
@@ -58,196 +60,206 @@ button:hover {
 }
 
 .dot {
-    width: 7px;
-    height: 7px;
-    background-color: #fff;
-    border-radius: 50%;
-    cursor: pointer;
-    margin: 0 3px;
-    user-select: none;
-    transition: background-color 0.3s ease;
+  width: 7px;
+  height: 7px;
+  background-color: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  margin: 0 3px;
+  user-select: none;
+  transition: background-color 0.3s ease;
 }
+
 .dots-container {
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translateY(-50%);
-    display: flex;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateY(-50%);
+  display: flex;
 }
+
 .dot.active {
     background-color: #000;
 }
 
+/*SECCION FIGU*/
 .seccion-figu{
-    padding: 0 64px;
-    display: flex;
-    flex-direction: column;
-    margin: 0 250px;
-    max-width: 1600px;
-
+  padding: auto;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  max-width: 1600px;
 }   
 
 .seccion-figu h1{
-    font-size: 35px;
-    text-align: left;
-    padding-top: 20px;
-    font-family: K2D, sans-serif;
-    font-weight: bold;
-    font-style: normal;
+  font-size: 35px;
+  text-align: left;
+  padding-top: 20px;
+  font-family: K2D, sans-serif;
+  font-weight: bold;
+  font-style: normal;
 }
+
 .seccion-buscando{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 5rem;
-    padding: 2rem 1rem;
-    margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5rem;
+  padding: 2rem 1rem;
+  margin: 0 auto;
 }
+
 .figu-1{
-    position: relative;
-    width: 250px;
-    height: 160px;
-    background: linear-gradient(to right, #0F9BFF, #222DFB);
-    border-radius: 15px;
-    
-    display: flex;
-    justify-content: right;
-    align-items: center;
+  position: relative;
+  width: 250px;
+  height: 160px;
+  background: linear-gradient(to right, #0F9BFF, #222DFB);
+  border-radius: 15px;
+  display: flex;
+  justify-content: right;
+  align-items: center;
 }
+
 .figu-figu {
-    position: absolute;
-    top: -17px;
-    width: 180px;
-    z-index: 2;
-    }
+  position: absolute;
+  top: -17px;
+  width: 180px;
+  z-index: 2;
+}
 
 .figu-1 img {
-    transition: transform 0.3s ease;
-    }
+  transition: transform 0.3s ease;
+}
+
 .figu-1:hover img {
   transform: scale(1.1); /* Zoom pequeño, puedes subirlo a 1.1 si deseas más */
 }
  .info-figu{
-    position: relative;
-    z-index: 1;
-    color: #000;
-    justify-content: right;
-    padding: 40px 10px 40px ;
+  position: relative;
+  z-index: 1;
+  color: #000;
+  justify-content: right;
+  padding: 40px 10px 40px ;
 }
-.info-figu h2{
-    font-size: 22px;
-    color: #fff;
-    text-align: center;
-    justify-content: center;
-    font-family: 'Montserrat', sans-serif;
-    font-weight:600;
-    width: 120px;
-    margin-block-start: 0px;
-    margin-block-end: 5px;
 
+.info-figu h2{
+  font-size: 22px;
+  color: #fff;
+  text-align: left;
+  justify-content: center;
+  font-family: 'Montserrat', sans-serif;
+  font-weight:600;
+  width: 120px;
+  margin-block-start: 0px;
+  margin-block-end: 5px;
 }
+
 .info-figu p{
-    font-size: 18px;
-    color: #fff;
-    margin-bottom: 5px;
-    margin-block-start: 0px;
-    text-align: left;
-    font-weight: lighter;
+  font-size: 18px;
+  color: #fff;
+  margin-bottom: 5px;
+  margin-block-start: 0px;
+  text-align: left;
+  font-weight: lighter;
 }
+
 .info-figu a {
-    display: block;
-    margin-top: 0.5rem;
-    color: #fff;
-    text-decoration: none;
-    font-family: 'Montserrat', sans-serif;  
-    font-size: 15px;
-    text-align: left;
-  }
+  display: block;
+  margin-top: 0.5rem;
+  color: #fff;
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;  
+  font-size: 15px;
+  text-align: center;
+}
 /*------ANUNCIO------*/
   
 .anuncioo{
-    padding: 0rem 64px;
-    display: flex;
-    flex-direction: column;
-    margin: 0 250px;
-    max-width: 1600px;
-    }
+  padding: 0rem 64px;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  max-width: 1600px;
+}
+
 .anuncioo h1{
-    font-size: 35px;
-    text-align: left;
-    font-family: K2D, sans-serif;
-    font-weight: bold;
-    font-style: normal;
-  }
+  font-size: 35px;
+  text-align: left;
+  font-family: K2D, sans-serif;
+  font-weight: bold;
+  font-style: normal;
+}
+
 .anunci {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto;
-    height: 100%;
-    gap: 10px;
-    margin: auto;
-  }
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  height: 100%;
+  gap: 10px;
+  margin: auto;
+}
 
 .card {
-    overflow: hidden;
-    height: auto;
-    position: relative;
-    color: white;
-    font-family: sans-serif;
-    text-align: center;
-  }
-#preventaa {
-    grid-row: span 2;
-    padding: 0;
+  overflow: hidden;
+  height: auto;
+  position: relative;
+  color: white;
+  font-family: sans-serif;
+  text-align: center;
+}
 
-  }
+#preventaa {
+  grid-row: span 2;
+  padding: 0;
+}
   
 #mikus {
-    text-align: center;
-    padding: 0px 10px;
-
-  }
+  text-align: center;
+  padding: 0px 10px;
+}
   
 #rllegados {
-    text-align: center;
-    padding: 0px 10px;
+  text-align: center;
+  padding: 0px 10px;
+}
 
-  }
 .card img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    display: block;
-    transition: transform 0.3s ease;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.3s ease;
+}
 
-  }
   .card:hover img {
   transform: scale(1.02); /* Zoom pequeño, puedes subirlo a 1.1 si deseas más */
 }
   
 .card a {
-    text-decoration: none;
-    color: #000;
-    text-align: left;
-    font-size: 20px;
-    font-family: 'k2d', sans-serif;
-    font-weight: 500;
+  text-decoration: none;
+  color: #000;
+  text-align: left;
+  font-size: 20px;
+  font-family: 'k2d', sans-serif;
+  font-weight: 500;
 }
+
 .card p {
-    margin-block-end: 0;
-    margin-block-start: 0;
+  margin-block-end: 0;
+  margin-block-start: 0;
 }
 
 /*SLIDERS*/
 
 .slider-logos {
-    margin: 0 314px;
-    overflow: hidden;
-    white-space: nowrap;
-    position: relative;
-    padding: 15px 0px;
-    border-radius:3px;
+  margin: 0 100px;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  padding: 15px 0px;
+  border-radius:3px;
 }
+
 .slider-track {
   width: calc(200%); /* porque duplicamos los logos */
   animation: scroll 20s linear infinite;
@@ -266,19 +278,20 @@ button:hover {
 .logos-slide img:hover {
   transform: scale(1.1);
 }
+
 .titulo-sliders {
   text-align: center;
   font-family: K2D, sans-serif;
   font-size: 30px;
   margin-block-end: 0px;
-  background-color: #e2e2e2;
+  background-color: #ececec;
 }
+
 .titulo-sliders h1 {
   padding: 15px;
   color: #222dfb;
   margin-block-start: 20px;
   margin-block-end: 20px;
-
 }
 
 /* Animación infinita */
@@ -292,76 +305,82 @@ button:hover {
 }
 /*-----NOSOTROS------*/
 .nosotros{
-    padding: 5.5rem 64px 0rem 64px;
-    display: flex;
-    justify-content: center;
-    align-items: center;    
-    gap: 1.5rem;
-    margin: 0 250px;
-    max-width: 1600px;
+  padding: 5.5rem 64px 0rem 64px;
+  display: flex;
+  justify-content: center;
+  align-items: center;    
+  gap: 1.5rem;
+  margin: auto;
+  max-width: 1600px;
 }
 
 .wasa {
-    display: flex;
-    flex-direction:column; 
-    align-items: center; 
-    width: auto;
-    height: auto;
-        font-family: 'K2D', sans-serif;
+  display: flex;
+  flex-direction:column; 
+  align-items: center; 
+  width: auto;
+  height: auto;
+  font-family: 'K2D', sans-serif;
 }
+
 .wasa img{
-    width: 60%;
-    height: auto;
-    padding: 40px 0px;
-    object-fit: contain;
+  width: 60%;
+  height: auto;
+  padding: 40px 0px;
+  object-fit: contain;
 }
+
 .wasa h1{
-    font-size: 45px;
-    text-align: center;
-    padding-top: 20px;
-    font-family: 'K2D', sans-serif;
-
+  font-size: 45px;
+  text-align: center;
+  padding-top: 20px;
+  font-family: 'K2D', sans-serif;
 }
+
 .wasa h2{
-    font-size: 25px;
-    font-weight: normal;
-    font-style: italic;
-    text-align: center;
+  font-size: 25px;
+  font-weight: normal;
+  font-style: italic;
+  text-align: center;
 }
-.quienes-somos{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    place-items: center;
-    padding: 15px;
-    text-align: center;
-    width: 1000px;
-    height: auto;
-    background: linear-gradient(to right, #b100e7, #0F9BFF);
-    overflow: hidden;
-    border-radius: 100px 0px 100px 0px;
-}
-.quienes-somos h1{
-    font-size: 60px;
-    color: rgb(253, 253, 253);
-    text-align: center;
-    justify-content: center;
-    width: 100%;
-    font-family: 'K2D', sans-serif;
-    margin-block-end: 0px;
-}
-.quienes-somos p{
-    font-size: 20px;
-    color: rgb(253, 253, 253);
-    text-align: center;
-    margin-block-start: 0px;
-}
-.gogetabroly{
-    width: 320px;
-    height: auto;
-    object-fit: contain;
-      animation: zoomInOut 4s ease-in-out infinite;
 
-}@keyframes zoomInOut {
+.quienes-somos{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  place-items: center;
+  padding: 15px;
+  text-align: center;
+  width: 1000px;
+  height: auto;
+  background: linear-gradient(to right, #b100e7, #0F9BFF);
+  overflow: hidden;
+  border-radius: 100px 0px 100px 0px;
+}
+
+.quienes-somos h1{
+  font-size: 60px;
+  color: rgb(253, 253, 253);
+  text-align: center;
+  justify-content: center;
+  width: 100%;
+  font-family: 'K2D', sans-serif;
+  margin-block-end: 0px;
+}
+
+.quienes-somos p{
+  font-size: 20px;
+  color: rgb(253, 253, 253);
+  text-align: center;
+  margin-block-start: 0px;
+}
+
+.gogetabroly{
+  width: 320px;
+  height: auto;
+  object-fit: contain;
+  animation: zoomInOut 4s ease-in-out infinite;
+}
+@keyframes zoomInOut {
   0%, 100% {
     transform: scale(1);
   }
@@ -369,95 +388,345 @@ button:hover {
     transform: scale(1.1); /* Ajusta el nivel de zoom aquí */
   }
 }
+
 .logofyp{
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    justify-items: center;
-    padding-top: 30px;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  justify-items: center;
+  padding-top: 30px;
 }
+
 .btn-qs{
-    justify-content: center ;
-    border: 1px solid #fff;
-    border-radius: 20px;
+  justify-content: center ;
+  border: 1px solid #fff;
+  border-radius: 20px;
 }
 
 /*-----ENTREGA------*/
 .entregas{
-
-    padding: 0 64px 1.5rem 64px;
-    display: flex;
-    align-items: center;    
-    gap: 2.5rem;
-    margin: 0 250px;
-    justify-content: center;
-    max-width: 90%;
-        
+  padding: 0 64px 1.5rem 64px;
+  display: flex;
+  align-items: center;    
+  gap: 2.5rem;
+  margin: 0 auto;
+  justify-content: center;
+  max-width: 90%;     
 }
+
 #mapa {
 	height: 300px;
 	width: 50%;
-    border: #0F9BFF solid 3px;
-    border-radius: 10px;
-    margin-top: 20px;
+  border: #0F9BFF solid 3px;
+  border-radius: 10px;
+  margin-top: 20px;
 }
 
 .feria{
-    padding: 15px;
-    text-align: center;
-    width: 40%;
-    height: auto;
-    overflow: hidden;
-    border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+  width: 40%;
+  height: auto;
+  overflow: hidden;
+  border-radius: 10px;
 }
+
 .feria h1{
-    font-size: 45px;
-    text-align: left;
-    padding-left: 30px;
-    font-family: 'K2D', sans-serif;
+  font-size: 45px;
+  text-align: left;
+  padding-left: 30px;
+  font-family: 'K2D', sans-serif;
 }
 
 .feria img {
-    width: 60%;
-    height: auto;
-    object-fit: contain;
-    justify-content: center ;
+  width: 60%;
+  height: auto;
+  object-fit: contain;
+  justify-content: center ;
 }
-.feria h2{
-    text-align: right;
-    font-size: 25px;
-    font-weight: normal;
-    font-style: italic;
-        margin-block-start: 0;
 
+.feria h2{
+  text-align: right;
+  font-size: 25px;
+  font-weight: normal;
+  font-style: italic;
+  margin-block-start: 0;
 }
 
 .gaa {
-        display: flex;
-    gap: 1rem;
-    width: 100%;
-    height: 100%;
+  display: flex;
+  margin: auto;
+  justify-content: center;
 }
+
 /* Responsive para pantallas pequeñas */
-@media (max-width: 768px) {
-  .logos-slide img {
-    height: 40px;
-    margin: 0 10px;
+/*------------------------MAX: 1024px*/
+@media (max-width: 1024px) {
+  /*SECCION FIGU*/
+  .seccion-buscando {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
   }
 
-  .titulo h1 {
-    font-size: 1.4rem;
+  .seccion-figu h1{
+    display: none;
+  }
+
+  .figu-1 {
+    width: 45%;
+    height: 180px;
+  }
+
+  .figu-figu {
+    width: 180px;
+    top: -10px;
+    left: -30px !important;
+    margin: auto;
+  }
+
+  /*ANUNCIOS*/
+  .anunci {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+
+  #preventaa {
+    grid-row: auto;
+  }
+
+  .card {
+    padding: 0;
+  }
+
+  .card a {
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .card p {
+    display: none;
+  }
+
+  .anuncioo h1 {
+    font-size: 50px;
+    padding-left: 50px;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+  }
+
+  /*SLIDERS*/
+  .titulo-sliders h1 {
+  font-size: 55px;
+  }
+
+  .slider-logos {
+    margin: 0 ;
+    padding: 5px 0;
+  }
+  
+  .slider-track {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(2, auto); /* 2 filas */
+    animation: scroll 20s linear infinite;
+    gap: 1rem 1rem;
+  }
+
+  .logos-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .logos-slide img {
+    margin: 0 15px;
+  }
+
+  /*NOSOTROS*/
+  .nosotros {
+    flex-direction: column;
+    padding: 3rem 32px 2rem 32px;
+  }
+
+  .quienes-somos {
+    width: 100%;
+    border-radius: 60px;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .gogetabroly {
+    display: none;
+  }
+
+  .wasa img {
+    display: none;
+  }
+
+  .gaa {
+    display: none;
+  }
+
+  .quienes-somos h1 {
+    font-size: 72px;
+  }
+
+  .quienes-somos p {
+    font-size: 36px;
+  }
+
+  .logofyp {
+    width: 80%;
+    padding-top: 10px;
+  }
+
+  .wasa h1 {
+    font-size: 58px;
+  }
+
+  .wasa h2 {
+    font-size: 38px;
+  }
+  .btn-qs {
+    font-size: 44px;
+    padding: 0.4rem 1rem;
+  }
+  
+  /*ENTREGAS*/
+  .entregas {
+    flex-direction: column;
+    padding: 1rem 24px;
+    gap: 1.5rem;
+  }
+
+  .feria {
+    width: 100%;
+    padding: 0;
+  }
+
+  .feria h1 {
+    font-size: 62px;
+    text-align: center;
+    padding-left: 0;
+    margin-block-start: 0;
+  }
+
+  .feria img {
+    width: 50%;
+  }
+
+  .feria h2 {
+    font-size: 38px;
+    padding-top: 20px;
+    text-align: center;
+  }
+
+  #mapa {
+    width: 100%;
+    height: 450px;
+    margin-top: 0;
   }
 }
 
-@media (max-width: 480px) {
-  .logos-slide img {
-    height: 35px;
-    margin: 0 8px;
+/*------------------------MAX: 768px*/
+@media (max-width: 768px) {
+  /*SECCION FIGU*/
+  .seccion-buscando {
+    gap: 1.5rem;
   }
 
-  .titulo h1 {
-    font-size: 1.2rem;
+  .figu-1 {
+    width: 40%;
+    height: 130px;
+  }
+
+  .figu-figu {
+    width: 120px;
+    top: 10px;
+    left: -30px !important;
+    margin: auto;
+  }
+
+  .info-figu {
+    padding: 1rem;
+  }
+
+  .info-figu p{
+    text-align: right;
+    font-size: 15px;
+  }
+
+  .info-figu h2{
+    text-align: right;
+    font-size: 15px;
+  }
+
+  .info-figu a{
+    text-align: right;
+  }
+
+  /*ANUNCIOS*/
+  .anuncioo h1 {
+    font-size: 20px;
+    padding-left: 0;
+  }
+
+  /*SLIDERS*/
+  .titulo-sliders h1 {
+    font-size: 35px;
+    padding: 10px;
+  }
+  .logos-slide img {
+    width: 100px;
+  }
+  /*NSOTROS*/
+
+  .quienes-somos {
+    width: 100%;
+    border-radius: 40px;
+    padding: 1rem;
+    grid-template-columns: 1fr;
+  }
+
+  .quienes-somos h1 {
+    font-size: 32px;
+  }
+
+  .quienes-somos p {
+    font-size: 16px;
+  }
+
+  .logofyp {
+    width: 80%;
+    padding-top: 10px;
+  }
+
+  .wasa h1 {
+    font-size: 28px;
+  }
+
+  .wasa h2 {
+    font-size: 18px;
+  }
+
+  .btn-qs {
+    font-size: 14px;
+    padding: 0.4rem 1rem;
+  }
+
+  .feria h1 {
+    font-size: 42px;
+  }
+
+  .feria h2 {
+    font-size: 18px;
+  }
+
+  #mapa {
+    width: 100%;
+    height: 250px;
+    margin-top: 0;
   }
 }
 

@@ -19,7 +19,21 @@ import { Loader } from '@googlemaps/js-api-loader';
 export class InicioComponent implements OnInit, OnDestroy {
   franquicias: Franquicia[] = [];
   marcas: Marca[] = [];
-  images: string[] = ['assets/slider1.png', 'assets/slider2.png', 'assets/slider3.png'];
+  images = [
+  {
+    desktop: '/assets/slider1.png',
+    mobile: '/assets/slider1-mobile.png'
+  },
+  {
+    desktop: '/assets/slider2.png',
+    mobile: '/assets/slider2-mobile.png'
+  },
+  {
+    desktop: '/assets/slider3.png',
+    mobile: '/assets/slider3-mobile.png'
+  }
+];
+
   currentIndex = 0;
   intervalId: any;
   isBrowser: boolean;
